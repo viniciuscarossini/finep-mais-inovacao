@@ -8,13 +8,13 @@
 :root{--bg:#eef2f4;--card:#fff;--ink:#183c3b;--muted:#687778;--teal:#005b5a;--teal2:#0c7771;--orange:#e47918;--red:#b94a48;--gold:#b6851b;--line:#d8e0e2;--shadow:0 10px 30px rgba(11,37,39,.07)}
 *{box-sizing:border-box} body{margin:0;font-synthesis:none;background:linear-gradient(180deg,#f6f8f8 0%,var(--bg) 100%);font-family:"Open Sans",Arial,Helvetica,sans-serif;color:#203536} .wrap{max-width:1500px;margin:0 auto;padding:24px 28px 40px}
 .header{background:linear-gradient(135deg,#064f4d,#0a6b68);color:#fff;border-radius:22px;padding:24px 26px;box-shadow:var(--shadow);display:flex;justify-content:space-between;gap:20px;align-items:flex-end} .header h1{font-size:28px;margin:0 0 5px;font-weight:400;letter-spacing:-.02em} .header p{margin:0;opacity:.84;font-size:13px} .stamp{font-weight:400;font-size:13px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.18);padding:9px 12px;border-radius:999px;white-space:nowrap}
-.panorama{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;margin:16px 0 18px} .kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 15px;box-shadow:var(--shadow)} .kpi .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em} .kpi .value{font-size:21px;font-weight:400;margin-top:7px;color:var(--ink)} .kpi .sub{font-size:11px;color:var(--muted);margin-top:3px}
+ .panorama{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin:16px 0 18px}.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 15px;box-shadow:var(--shadow);min-width:0}.kpi .icon{width:34px;height:34px;border-radius:9px;background:#eef5f7;color:var(--teal);display:grid;place-items:center;font-size:16px;margin-bottom:9px}.kpi .label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}.kpi .value{font-size:23px;font-weight:400;margin-top:7px;color:var(--ink);white-space:nowrap}.kpi .sub{font-size:10px;color:var(--muted);margin-top:3px}
 .tabbar{display:flex;gap:8px;overflow:auto;padding:4px 2px 10px;position:sticky;top:0;z-index:20;background:rgba(238,242,244,.92);backdrop-filter:blur(10px)} .tab{border:1px solid #cdd8da;background:#fff;color:var(--ink);padding:10px 13px;border-radius:999px;font-weight:400;font-size:12px;white-space:nowrap;cursor:pointer} .tab.active{background:var(--teal);color:#fff;border-color:var(--teal)}
 .panel{display:none} .panel.active{display:block} .titleRow{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin:10px 0 14px} .titleRow h2{margin:0;color:var(--teal);font-size:24px} .source{font-size:11px;color:var(--muted);text-align:right}
 .grid2{display:grid;grid-template-columns:1.12fr .88fr;gap:14px;margin-bottom:14px} .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px;box-shadow:var(--shadow)} .card h3{font-size:14px;color:var(--ink);margin:0 0 12px} .cards4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px} .mini{padding:12px;border:1px solid var(--line);border-radius:14px;background:#fbfcfc} .mini b{display:block;font-size:18px;color:var(--ink)} .mini span{font-size:11px;color:var(--muted)}
 .statusWrap{display:grid;grid-template-columns:170px 1fr;gap:18px;align-items:center} .donut{width:150px;height:150px;border-radius:50%;background:conic-gradient(var(--teal) 0 0%, #dde4e5 0);position:relative;margin:auto} .donut:after{content:"";position:absolute;inset:31px;background:white;border-radius:50%} .legend{display:grid;gap:9px} .leg{display:flex;justify-content:space-between;gap:10px;font-size:12px} .dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:6px;background:#999} .dot.a{background:var(--teal)} .dot.i{background:#91a4a5} .dot.r{background:var(--red)} .dot.p{background:var(--gold)}
 .barList{display:grid;gap:10px} .barRow{display:grid;grid-template-columns:minmax(170px,1.25fr) 2fr 65px;align-items:center;gap:10px;font-size:11px} .barLabel{white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .barTrack{height:13px;background:#edf1f2;border-radius:999px;display:flex;overflow:hidden} .seg.a{background:var(--teal)} .seg.i{background:#91a4a5} .seg.r{background:var(--red)} .seg.p{background:var(--gold)} .barN{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
-.tableWrap{overflow:auto;border:1px solid var(--line);border-radius:14px} table{width:100%;border-collapse:collapse;font-size:11px;min-width:720px} thead th{position:sticky;top:0;background:#eff4f4;color:var(--ink);text-align:left;padding:9px 8px;border-bottom:1px solid var(--line)} tbody td{padding:8px;border-bottom:1px solid #edf1f2;vertical-align:top} tbody tr:hover{background:#fafcfc} .num{text-align:right;font-variant-numeric:tabular-nums} .badge{display:inline-flex;padding:4px 7px;border-radius:999px;font-size:10px;font-weight:400} .bA{background:#e5f2ef;color:#075b57} .bI{background:#eef1f2;color:#5c6b6c} .bR{background:#fbe9e8;color:#a13e3c} .bP{background:#f7f0db;color:#896a12}
+.tableWrap{overflow:auto;border:1px solid var(--line);border-radius:14px} table{width:100%;border-collapse:collapse;font-size:11px;min-width:720px} thead th{position:sticky;top:0;background:#eff4f4;color:var(--ink);text-align:left;padding:9px 8px;border-bottom:1px solid var(--line)} .sortable{cursor:pointer;user-select:none}.sortable:after{content:" ↕";font-size:9px;color:#9aa8a8}.sorted-asc:after{content:" ↑";color:var(--teal)}.sorted-desc:after{content:" ↓";color:var(--teal)} tbody td{padding:8px;border-bottom:1px solid #edf1f2;vertical-align:top} tbody tr:hover{background:#fafcfc} .num{text-align:right;font-variant-numeric:tabular-nums} .badge{display:inline-flex;padding:4px 7px;border-radius:999px;font-size:10px;font-weight:400} .bA{background:#e5f2ef;color:#075b57} .bI{background:#eef1f2;color:#5c6b6c} .bR{background:#fbe9e8;color:#a13e3c} .bP{background:#f7f0db;color:#896a12}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px} .smallTable{min-width:0} .note{font-size:10px;color:var(--muted);line-height:1.45;margin-top:9px} .search{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:10px;font-size:12px;margin-bottom:9px} .empty{padding:20px;color:var(--muted);text-align:center}
 .footer{margin-top:18px;color:#708080;font-size:10px;line-height:1.5} .footer strong{color:#536566}
 
@@ -28,7 +28,7 @@
 .bosch-stat .k{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-weight:400}
 .bosch-stat .v{font-size:23px;font-weight:400;color:var(--ink);margin-top:7px}
 .bosch-stat .s{font-size:11px;color:var(--muted);margin-top:3px}
-.bosch-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.bosch-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:14px}
 .bosch-edit{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fbfcfc}
 .bosch-edit h3{margin:0;font-size:14px;color:var(--ink)}
 .bosch-edit .sub{font-size:11px;color:var(--muted);margin-top:3px}
@@ -82,11 +82,70 @@ h1,h2,h3,h4,h5,h6,b,strong,th { font-weight:400 !important; }
 .bosch-summary{grid-template-columns:repeat(4,1fr)}
 @media(max-width:900px){.filterGrid{grid-template-columns:1fr}.bosch-summary{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:700px){.bosch-summary{grid-template-columns:1fr}}
+
+/* Final layout updates */
+html.dark{filter:none}
+body.dark{--bg:#0f172a;--card:#1e293b;--ink:#e5e7eb;--muted:#94a3b8;--teal:#38bdf8;--teal2:#0ea5e9;--orange:#f59e0b;--red:#ef6b67;--gold:#d6b34a;--line:#334155;--shadow:0 5px 18px rgba(0,0,0,.22);background:var(--bg);color:var(--ink)}
+body.dark .header{background:linear-gradient(135deg,#0b2536,#12354a)}
+body.dark .tabbar{background:rgba(15,23,42,.92)}
+body.dark .tab, body.dark .card, body.dark .mini, body.dark .filterPanel, body.dark .filterField select, body.dark .filterField input, body.dark .tableWrap, body.dark .bosch-section, body.dark .bosch-stat, body.dark .bosch-edit, body.dark .bosch-table-wrap, body.dark .bosch-table, body.dark .kpi{background:var(--card);color:var(--ink);border-color:var(--line)}
+body.dark thead th{background:#162237;color:var(--muted);border-color:var(--line)}
+body.dark tbody td{border-color:#243244}
+body.dark tbody tr:hover{background:#162237}
+body.dark .mini span,body.dark .note,body.dark .filterHint,body.dark .source,body.dark .search{color:var(--muted)}
+body.dark .search{background:var(--card);color:var(--ink);border-color:var(--line)}
+body.dark .statusWrap .donut:after{background:var(--card)}
+.header2{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:16px}
+.header2 .accent{height:4px;background:var(--teal)}
+.header2 .inner{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:18px;align-items:center;padding:15px 18px}
+.brandMark{display:flex;align-items:center;gap:12px}
+.brandMark .finepBox{width:42px;height:42px;border-radius:10px;background:var(--teal);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:400;letter-spacing:.02em}
+.brandMark h1{margin:0;font-size:22px;font-weight:400;color:var(--ink)}
+.brandMark p{margin:3px 0 0;font-size:11px;color:var(--muted)}
+.headerMeta{text-align:right}
+.headerMeta .k{font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.headerMeta .v{font-size:13px;color:var(--ink);margin-top:4px}
+.themeCtl{display:flex;align-items:center;gap:9px}
+.themeLabel{font-size:10px;color:var(--muted)}
+.themeToggle{width:52px;height:28px;border:1px solid var(--line);border-radius:999px;background:var(--soft,#f2f6fb);position:relative;cursor:pointer;padding:0}
+.themeToggle .knob{width:22px;height:22px;border-radius:50%;position:absolute;top:2px;left:3px;background:var(--teal);transition:.18s;box-shadow:0 1px 4px rgba(0,0,0,.18)}
+body.dark .themeToggle{background:#162237}
+body.dark .themeToggle .knob{left:26px}
+.headerControls{display:flex;align-items:center;gap:14px}
+.panorama{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin:16px 0 18px}
+.kpi{min-height:108px;padding:14px 15px;display:flex;flex-direction:column;justify-content:space-between}
+.kpi .icon{width:30px;height:30px;border-radius:8px;background:#edf7ff;color:var(--teal);display:grid;place-items:center;font-size:15px;margin-bottom:8px}
+.kpi .value{font-size:24px;font-weight:400;margin-top:0}
+.panelTop{display:grid;grid-template-columns:minmax(300px,.82fr) minmax(700px,1.78fr);gap:14px;align-items:stretch;margin-bottom:14px}
+.panelMetrics{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.panelMetric{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;box-shadow:var(--shadow);min-height:92px}
+.panelMetric .k{font-size:9px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.panelMetric .v{font-size:22px;margin-top:8px;color:var(--ink)}
+.panelMetric .s{font-size:10px;color:var(--muted);margin-top:3px}
+.split4{display:grid;grid-template-columns:1.08fr .92fr;gap:14px;margin-bottom:14px;align-items:stretch}
+.statusRead{display:grid;grid-template-columns:1.05fr .95fr;gap:14px;align-items:center}
+.geo{display:none}
+.companyWide{margin-top:14px}
+.tableWide{width:100%;min-width:0}
+.companyDetailTable{width:100%;min-width:980px;table-layout:auto}
+.companyDetailTable td,.companyDetailTable th{white-space:nowrap}.companyDetailTable th:nth-child(5),.companyDetailTable td:nth-child(5){width:46px;text-align:center}
+.companyDetailTable td:nth-child(2){white-space:normal;min-width:190px}
+.sectorTag{display:inline-flex;padding:4px 7px;border-radius:999px;background:#eef5f7;color:var(--teal);font-size:10px}
+.lineTable th,.lineTable td{white-space:nowrap}
+.lineTable .moneyMi{white-space:nowrap}
+.traj{margin:0;padding-left:16px;display:grid;gap:5px}
+.traj li{font-size:10px;line-height:1.3}
+@media(max-width:1200px){.panelTop{grid-template-columns:1fr}.panelMetrics{grid-template-columns:repeat(5,1fr)}.statusRead,.split4{grid-template-columns:1fr}.panorama{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:800px){.header2 .inner{grid-template-columns:1fr;align-items:start}.headerControls{justify-content:space-between}.panorama{grid-template-columns:repeat(2,1fr)}.panelMetrics{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.panorama{grid-template-columns:1fr}.panelMetrics{grid-template-columns:1fr}.statusRead{grid-template-columns:1fr}}
+
+
+body.dark{--bg:#101819;--card:#172120;--ink:#e7eeee;--muted:#9eb0af;--teal:#7fd8d2;--teal2:#66c7c0;--line:#304140;--shadow:0 10px 30px rgba(0,0,0,.22);background:linear-gradient(180deg,#111817 0%,#101819 100%);color:#e7eeee}.dark .card,.dark .filterPanel,.dark .panelMetric,.dark .kpi,.dark .mini,.dark .bosch-stat,.dark .bosch-edit,.dark .bosch-metric,.dark .tableWrap,.dark .bosch-table-wrap{background:#172120;color:#e7eeee}.dark table,.dark .bosch-table{background:#172120}.dark thead th,.dark .bosch-table th{background:#1d2a29;color:#b7c9c7}.dark tbody td,.dark .bosch-table td{border-color:#2b3a39}.dark .tab{background:#172120;color:#dbe8e7;border-color:#304140}.dark .tabbar{background:rgba(16,24,25,.92)}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="header"><div><h1>Finep Mais Inovação Brasil – Rodada 2</h1><p>Dashboard executivo dos resultados parciais • base documental com referência principal a 10/09/2026</p></div><div class="stamp">7 chamadas • fluxo contínuo</div></div>
+  <div class="header2"><div class="accent"></div><div class="inner"><div class="brandMark"><div class="finepBox">FINEP</div><div><h1>Finep Mais Inovação Brasil – Rodada 2</h1><p>Dashboard de acompanhamento das chamadas • resultados parciais</p></div></div><div class="headerMeta"><div class="k">Última atualização</div><div class="v">10/09/2026</div></div><div class="headerControls"><div class="themeLabel">Modo escuro</div><button id="themeToggle" class="themeToggle" aria-label="Alternar modo claro/escuro"><span class="knob"></span></button></div></div></div>
   <div class="panorama" id="panorama"></div>
   
 <section class="bosch-section" id="bosch-section">
@@ -110,12 +169,30 @@ function brlLegend(){return 'R$ mil'}
 function pct(n){return (n||0).toFixed(1)+'%'}
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function badge(cls,text){return `<span class="badge ${cls}">${text}</span>`}
+function sectorOf(name){
+  const n=String(name||'').toLowerCase();
+  const rules=[
+    [/bosch|automot|auto peças|auto pecas|montadora|veiculos|veículos|pneus|freios|powertrain|mobilidade/i,'Automotivo'],
+    [/petrobras|petroleo|petróleo|oil|gas|gás|combustivel|combustível|refin|gasoduto|exploracao de petroleo/i,'O&G'],
+    [/miner|metais|metalurg|sider|alumin|ferro|ouro|cobre|niquel|níquel|minera/i,'Mineração e Metais'],
+    [/agro|agric|fertiliz|pecu|leite|latic|cacau|sement|defensivos|biofert|florest|frigor/i,'Agroindustrial'],
+    [/energia|eletric|bateria|hidrogenio|hidrogênio|biogás|biometano|solar|eolica|eólica|transmissao|transmissão|geracao|geração/i,'Energia'],
+    [/software|tecnologia|sistemas|comput|dados|digital|ia |inteligencia artificial|inteligência artificial|chip|semicond|microeletron|microeletrônica|sensor|drones|automacao|automação/i,'Tecnologia'],
+    [/quimic|químic|plast|polimer|embal|tintas|borracha/i,'Química e Materiais'],
+    [/saneam|agua|água|esgoto|residuo|resíduo|reciclag|economia circular|waste/i,'Saneamento e Circularidade'],
+    [/constr|engenh|incorpor|arquitet|moradia|cimento|concret/i,'Construção e Engenharia'],
+    [/saude|saúde|farm|biotec|vacina|hospital|diagnost/i,'Saúde e Biotecnologia'],
+  ];
+  for(const [re,label] of rules) if(re.test(n)) return label;
+  return 'Outros';
+}
 function statusTotals(c){return c.counts.approved+c.counts.indeferido+c.counts.reprovado+c.counts.analysis}
 function donutBg(c){const t=statusTotals(c)||1; const a=c.counts.approved/t*100; const i=c.counts.indeferido/t*100; const r=c.counts.reprovado/t*100; const x=a+i; return `conic-gradient(var(--teal) 0 ${a}%, #91a4a5 ${a}% ${x}%, var(--red) ${x}% ${x+r}%, var(--gold) ${x+r}% 100%)`}
 function lineRows(c){const max=Math.max(...c.lineSummary.map(x=>x.submitted),1); return c.lineSummary.map(x=>{const p=a=>x.submitted?100*a/x.submitted:0; return `<div class="barRow"><div class="barLabel" title="${esc(x.line)}">${esc(x.line)}</div><div class="barTrack"><div class="seg a" style="width:${p(x.approved)}%"></div><div class="seg i" style="width:${p(x.indeferido)}%"></div><div class="seg r" style="width:${p(x.reprovado)}%"></div><div class="seg p" style="width:${p(x.analysis)}%"></div></div><div class="barN">${x.submitted} propostas</div></div>`}).join('')}
 const panelState={};
 function moneyK(n){return Math.round((n||0)/1000).toLocaleString('pt-BR')}
 function moneyMi(n){return Math.round((n||0)/1000000).toLocaleString('pt-BR')}
+function moneyMi1(n){return ((n||0)/1000000).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})}
 function boschMoney(n){return Math.round((n||0)/1000).toLocaleString('pt-BR')}
 function boschPct(n){return (n||0).toFixed(1)+'%'}
 function boschClass(balance,amount){
@@ -152,7 +229,7 @@ function metricsFor(c,rows){
   rows.forEach(r=>{if(!companies.has(r.cnpj))companies.set(r.cnpj,{company:r.company,cnpj:r.cnpj,proposals:0,approved:0,indeferido:0,reprovado:0,analysis:0,requested:0}); const x=companies.get(r.cnpj); x.proposals++; x[rowStatus(r)]++; x.requested+=r.amount||0});
   const ufs=[...new Set(rows.map(r=>r.uf).filter(Boolean))].map(uf=>({uf,proposals:rows.filter(r=>r.uf===uf).length})).sort((a,b)=>b.proposals-a.proposals||a.uf.localeCompare(b.uf));
   const lineMap=new Map();
-  rows.forEach(r=>{if(!lineMap.has(r.line))lineMap.set(r.line,{line:r.line,submitted:0,approved:0,indeferido:0,reprovado:0,analysis:0,approvedValue:0}); const x=lineMap.get(r.line); x.submitted++; const rs=rowStatus(r); x[rs]++; if(rs==='approved')x.approvedValue+=r.amount||0});
+  rows.forEach(r=>{if(!lineMap.has(r.line))lineMap.set(r.line,{line:r.line,submitted:0,approved:0,indeferido:0,reprovado:0,analysis:0,approvedValue:0,analysisValue:0}); const x=lineMap.get(r.line); x.submitted++; const rs=rowStatus(r); x[rs]++; if(rs==='approved')x.approvedValue+=r.amount||0; if(rs==='analysis')x.analysisValue+=r.amount||0});
   return {...c,counts,approvedValue,pendingDemand,approvalAllPct,approvalDecidedPct,reprovFinalPct,indeferFinalPct,companies:[...companies.values()].sort((a,b)=>b.proposals-a.proposals||a.company.localeCompare(b.company)),uniqueCompanies:companies.size,ufs,lineSummary:[...lineMap.values()]};
 }
 function filterOptions(c){
@@ -162,60 +239,67 @@ function filterOptions(c){
 }
 function companyTable(c,rows){
   const key=c.key, st=panelState[key];
-  let arr=metricsFor(c,rows).companies.slice();
+  const sourceRows=c.rows.slice();
+  const analysis=sourceRows.filter(r=>r.section==='analysis');
+  const approved=sourceRows.filter(r=>r.section==='approved');
+  const reprov=sourceRows.filter(r=>r.section==='final'&&r.status==='Reprovado');
+  const indef=sourceRows.filter(r=>r.section==='final'&&r.status==='Indeferido');
+  const ordered=[...analysis,...approved,...reprov,...indef];
   const q=(st.company||'').toLowerCase();
-  if(q)arr=arr.filter(x=>(x.company+' '+x.cnpj).toLowerCase().includes(q));
-  const sortFields={company:'company',cnpj:'cnpj',proposals:'proposals',approved:'approved',indeferido:'indeferido',reprovado:'reprovado',analysis:'analysis',requested:'requested'};
-  const sf=sortFields[st.sortCol]||'proposals';
-  arr.sort((a,b)=>{const av=a[sf],bv=b[sf]; const cmp=typeof av==='number'?(av-bv):String(av).localeCompare(String(bv),'pt-BR',{sensitivity:'base'}); return cmp*st.sortDir});
-  const totalPages=Math.max(1,Math.ceil(arr.length/15)); st.page=Math.min(st.page,totalPages); const start=(st.page-1)*15; const pageArr=arr.slice(start,start+15);
-  if(!pageArr.length)return '<div class="empty">Nenhuma empresa encontrada.</div>';
-  const th=(label,col,cls='')=>`<th class="sortable ${cls} ${st.sortCol===col?(st.sortDir>0?'sorted-asc':'sorted-desc'):''}" onclick="sortCompany('${key}','${col}')">${label}</th>`;
-  return `<div class="tableWrap"><table id="companyTable-${key}"><thead><tr>${th('Empresa','company')}${th('CNPJ','cnpj')}${th('Prop.','proposals','num')}${th('Aprov.','approved','num')}${th('Indef.','indeferido','num')}${th('Reprov.','reprovado','num')}${th('Análise','analysis','num')}${th('Valor proces. (R$ mil)','requested','num')}</tr></thead><tbody>${pageArr.map(x=>`<tr><td>${esc(x.company)}</td><td>${esc(x.cnpj)}</td><td class="num">${x.proposals}</td><td class="num">${x.approved}</td><td class="num">${x.indeferido}</td><td class="num">${x.reprovado}</td><td class="num">${x.analysis}</td><td class="num">${moneyK(x.requested)}</td></tr>`).join('')}</tbody></table></div><div class="companyPager"><span>${arr.length} empresas • página ${st.page} de ${totalPages}</span><div class="pagerBtns"><button onclick="companyPage('${key}',${st.page-1})" ${st.page<=1?'disabled':''}>Anterior</button>${Array.from({length:Math.min(totalPages,7)},(_,i)=>i+1).map(p=>`<button class="${p===st.page?'active':''}" onclick="companyPage('${key}',${p})">${p}</button>`).join('')}<button onclick="companyPage('${key}',${st.page+1})" ${st.page>=totalPages?'disabled':''}>Próxima</button></div></div>`;
+  const rowsWithId=ordered.map((r,i)=>({...r,id:i+1,statusLabel:r.section==='approved'?'Aprovado':r.status||'Em análise',statusKey:rowStatus(r),sector:sectorOf(r.company)}));
+  let arr=rowsWithId.filter(r=>{const okLine=st.line==='Todos'||r.line===st.line; const okStatus=st.status==='Todos'||r.statusKey===st.status; const okUF=st.uf==='Todos'||r.uf===st.uf; const okCompany=!q||(`${r.company} ${r.cnpj}`).toLowerCase().includes(q); return okLine&&okStatus&&okUF&&okCompany;});
+  const sortCol=st.companySortCol||'id', sortDir=st.companySortDir||1;
+  const fieldMap={id:'id',ref:'ref',company:'company',sector:'sector',uf:'uf',status:'statusLabel',line:'line',amount:'amount'};
+  const sf=fieldMap[sortCol]||'id';
+  arr.sort((a,b)=>{const av=a[sf],bv=b[sf]; const cmp=typeof av==='number'?(av-bv):String(av??'').localeCompare(String(bv??''),'pt-BR',{sensitivity:'base'}); return cmp*sortDir});
+  const totalPages=Math.max(1,Math.ceil(arr.length/15)); st.companyPage=Math.min(st.companyPage||1,totalPages); const page=st.companyPage; const pageArr=arr.slice((page-1)*15,(page-1)*15+15);
+  if(!pageArr.length)return '<div class="empty">Nenhuma proposta encontrada.</div>';
+  const th=(label,col,cls='')=>`<th class="sortable ${cls} ${sortCol===col?(sortDir>0?'sorted-asc':'sorted-desc'):''}" onclick="sortCompanyRows('${key}','${col}')">${label}</th>`;
+  return `<div class="tableWrap tableWide"><table class="companyDetailTable" id="companyTable-${key}"><thead><tr>${th('ID','id','num')}${th('Referência','ref')}${th('Empresa','company')}${th('Setor','sector')}${th('UF','uf')}${th('Status','status')}${th('Linha temática','line')}${th('Valor solicitado (R$ mil)','amount','num')}</tr></thead><tbody>${pageArr.map(x=>`<tr><td class="num">${x.id}</td><td>${esc(x.ref)}</td><td>${esc(x.company)}</td><td><span class="sectorTag">${esc(x.sector)}</span></td><td>${esc(x.uf||'')}</td><td>${badge(x.statusKey==='approved'?'bA':x.statusKey==='reprovado'?'bR':x.statusKey==='indeferido'?'bI':'bP',esc(x.statusLabel))}</td><td>${esc(x.line)}</td><td class="num">${moneyK(x.amount)}</td></tr>`).join('')}</tbody></table></div><div class="companyPager"><span>${arr.length} propostas • página ${page} de ${totalPages}</span><div class="pagerBtns"><button onclick="companyPage2('${key}',${page-1})" ${page<=1?'disabled':''}>Anterior</button>${Array.from({length:Math.min(totalPages,7)},(_,i)=>i+1).map(p=>`<button class="${p===page?'active':''}" onclick="companyPage2('${key}',${p})">${p}</button>`).join('')}<button onclick="companyPage2('${key}',${page+1})" ${page>=totalPages?'disabled':''}>Próxima</button></div></div>`;
 }
 function ufTable(c,rows){const m=metricsFor(c,rows); const arr=m.ufs; return `<div class="tableWrap"><table id="ufTable-${c.key}"><thead><tr><th class="sortable" onclick="sortTable('ufTable-${c.key}',0,'text',this)">UF</th><th class="sortable num" onclick="sortTable('ufTable-${c.key}',1,'number',this)">Propostas</th><th class="sortable num" onclick="sortTable('ufTable-${c.key}',2,'number',this)">%</th></tr></thead><tbody>${arr.map(x=>`<tr><td>${x.uf}</td><td class="num">${x.proposals}</td><td class="num">${pct(100*x.proposals/(m.counts.submitted||1))}</td></tr>`).join('')}</tbody></table></div>`}
 function lineRows(m){const max=Math.max(...m.lineSummary.map(x=>x.submitted),1); return m.lineSummary.map(x=>{const p=a=>x.submitted?100*a/x.submitted:0; return `<div class="barRow"><div class="barLabel" title="${esc(x.line)}">${esc(x.line)}</div><div class="barTrack"><div class="seg a" style="width:${p(x.approved)}%"></div><div class="seg i" style="width:${p(x.indeferido)}%"></div><div class="seg r" style="width:${p(x.reprovado)}%"></div><div class="seg p" style="width:${p(x.analysis)}%"></div></div><div class="barN">${x.submitted} propostas</div></div>`}).join('')}
-function lineTable(c,m){return `<div class="tableWrap"><table id="lineTable-${c.key}"><thead><tr><th class="sortable" onclick="sortTable('lineTable-${c.key}',0,'text',this)">Linha temática</th><th class="sortable num" onclick="sortTable('lineTable-${c.key}',1,'number',this)">Submet.</th><th class="sortable num" onclick="sortTable('lineTable-${c.key}',2,'number',this)">Aprov.</th><th class="sortable num" onclick="sortTable('lineTable-${c.key}',3,'number',this)">Indef.</th><th class="sortable num" onclick="sortTable('lineTable-${c.key}',4,'number',this)">Reprov.</th><th class="sortable num" onclick="sortTable('lineTable-${c.key}',5,'number',this)">Análise</th><th class="sortable num" onclick="sortTable('lineTable-${c.key}',6,'number',this)">Aprovado (R$ mil)</th></tr></thead><tbody>${m.lineSummary.map(x=>`<tr><td>${esc(x.line)}</td><td class="num">${x.submitted}</td><td class="num">${x.approved}</td><td class="num">${x.indeferido}</td><td class="num">${x.reprovado}</td><td class="num">${x.analysis}</td><td class="num">${moneyK(x.approvedValue)}</td></tr>`).join('')}</tbody></table></div>`}
+function lineTable(c,m){return `<div class="tableWrap"><table class="lineTable" id="lineTable-${c.key}"><thead><tr><th class="sortable" onclick="sortTable('lineTable-${c.key}',0,'text',this)">Linha temática</th><th class="sortable num" onclick="sortTable('lineTable-${c.key}',1,'number',this)">Submet.</th><th class="sortable num" onclick="sortTable('lineTable-${c.key}',2,'number',this)">Aprov.</th><th class="sortable num" onclick="sortTable('lineTable-${c.key}',3,'number',this)">Indef.</th><th class="sortable num" onclick="sortTable('lineTable-${c.key}',4,'number',this)">Reprov.</th><th class="sortable num" onclick="sortTable('lineTable-${c.key}',5,'number',this)">Em análise</th><th class="sortable num" onclick="sortTable('lineTable-${c.key}',6,'number',this)">Aprovado (R$ mi)</th><th class="sortable num" onclick="sortTable('lineTable-${c.key}',7,'number',this)">Em análise (R$ mi)</th></tr></thead><tbody>${m.lineSummary.map(x=>`<tr><td>${esc(x.line)}</td><td class="num">${x.submitted}</td><td class="num">${x.approved}</td><td class="num">${x.indeferido}</td><td class="num">${x.reprovado}</td><td class="num">${x.analysis}</td><td class="num moneyMi">${moneyMi1(x.approvedValue)}</td><td class="num moneyMi">${moneyMi1(x.analysisValue)}</td></tr>`).join('')}</tbody></table></div>`}
 function sortTable(id,col,type,th){const table=document.getElementById(id);if(!table)return; const tbody=table.tBodies[0]; const rows=[...tbody.rows]; const current=table.dataset.sortCol==col?table.dataset.sortDir:'desc'; const dir=current==='asc'?'desc':'asc'; rows.sort((a,b)=>{const va=a.cells[col].innerText.trim(),vb=b.cells[col].innerText.trim(); let cmp; if(type==='number'){const na=parseFloat(va.replace(/\./g,'').replace(',','.').replace('%','')); const nb=parseFloat(vb.replace(/\./g,'').replace(',','.').replace('%','')); cmp=(isNaN(na)?0:na)-(isNaN(nb)?0:nb)}else cmp=va.localeCompare(vb,'pt-BR',{sensitivity:'base'}); return dir==='asc'?cmp:-cmp}); rows.forEach(r=>tbody.appendChild(r)); table.dataset.sortCol=col; table.dataset.sortDir=dir; const heads=table.tHead.rows[0].cells; [...heads].forEach(h=>h.classList.remove('sorted-asc','sorted-desc')); th.classList.add(dir==='asc'?'sorted-asc':'sorted-desc')}
 function companyPage(key,p){const st=panelState[key]; st.page=Math.max(1,p); if(st.page!==p)return; renderPanel(key)}
-function sortCompany(key,col){const st=panelState[key]; if(st.sortCol===col)st.sortDir*=-1; else{st.sortCol=col;st.sortDir=typeof st.sortDir==='number'&&col==='company'?1:-1} st.page=1; renderPanel(key)}
+function companyPage2(key,p){const st=panelState[key]; st.companyPage=Math.max(1,p); renderPanel(key)}
+function sortCompanyRows(key,col){const st=panelState[key]; if(st.companySortCol===col)st.companySortDir*=-1; else{st.companySortCol=col;st.companySortDir=col==='id'||col==='amount'?1:1} st.companyPage=1; renderPanel(key)}
 function renderCompanySearch(key,q){panelState[key].company=q; panelState[key].page=1; renderPanel(key)}
 function panelFilters(c){const st=panelState[c.key]; const {lines,ufs}=filterOptions(c); return `<div class="filterPanel"><div class="filterGrid"><div class="filterField"><label>Linha temática</label><select onchange="setPanelFilter('${c.key}','line',this.value)"><option>Todos</option>${lines.map(x=>`<option ${st.line===x?'selected':''}>${esc(x)}</option>`).join('')}</select></div><div class="filterField"><label>Status da proposta</label><select onchange="setPanelFilter('${c.key}','status',this.value)"><option>Todos</option><option value="approved" ${st.status==='approved'?'selected':''}>Aprovado</option><option value="reprovado" ${st.status==='reprovado'?'selected':''}>Reprovado</option><option value="indeferido" ${st.status==='indeferido'?'selected':''}>Indeferido</option><option value="analysis" ${st.status==='analysis'?'selected':''}>Em análise</option></select></div><div class="filterField"><label>UF</label><select onchange="setPanelFilter('${c.key}','uf',this.value)"><option>Todos</option>${ufs.map(x=>`<option ${st.uf===x?'selected':''}>${x}</option>`).join('')}</select></div></div><div class="filterHint">Os filtros atualizam KPIs, status, distribuição temática, empresas e distribuição geográfica.</div></div>`}
 function setPanelFilter(key,field,value){panelState[key][field]=value; panelState[key].page=1; renderPanel(key)}
-function makePanel(c,index){panelState[c.key]={line:'Todos',status:'Todos',uf:'Todos',company:'',page:1,sortCol:'proposals',sortDir:-1}; return `<section class="panel ${index===0?'active':''}" id="panel-${c.key}"><div class="titleRow"><div><h2>${esc(c.name)}</h2></div><div class="source">Relatório: resultados parciais até ${c.sourceDate||'10/08/2026'}${c.key==='agro'?' • arquivo atualizado em 10/09/2026':''}</div></div>${panelFilters(c)}<div id="body-${c.key}"></div></section>`}
-function renderPanel(key){const c=calls.find(x=>x.key===key); if(!c)return; const rows=rowsFor(c),m=metricsFor(c,rows); const decided=m.counts.approved+m.counts.final; const companyHtml=companyTable(c,rows); document.getElementById('body-'+key).innerHTML=`<div class="cards4"><div class="mini"><b>${moneyK(m.budget)}</b><span>R$ mil • orçamento total do edital</span></div><div class="mini"><b>${moneyK(m.approvedValue)}</b><span>R$ mil • valor aprovado no recorte</span></div><div class="mini"><b>${moneyK(m.pendingDemand)}</b><span>R$ mil • demanda em análise</span></div><div class="mini"><b>${m.counts.submitted}</b><span>propostas no recorte filtrado</span></div></div><div class="grid2"><div class="card"><h3>Status das propostas</h3><div class="statusWrap"><div class="donut" style="background:${donutBg(m)}"></div><div class="legend"><div class="leg"><span><i class="dot a"></i>Aprovadas</span><b>${m.counts.approved} • ${pct(100*m.counts.approved/(m.counts.submitted||1))}</b></div><div class="leg"><span><i class="dot i"></i>Indeferidas</span><b>${m.counts.indeferido} • ${pct(100*m.counts.indeferido/(m.counts.submitted||1))}</b></div><div class="leg"><span><i class="dot r"></i>Reprovadas</span><b>${m.counts.reprovado} • ${pct(100*m.counts.reprovado/(m.counts.submitted||1))}</b></div><div class="leg"><span><i class="dot p"></i>Em análise</span><b>${m.counts.analysis} • ${pct(100*m.counts.analysis/(m.counts.submitted||1))}</b></div><div class="note">Aprovação sobre propostas filtradas: <b>${pct(m.approvalAllPct)}</b>. Aprovação entre decididas: <b>${pct(m.approvalDecidedPct)}</b>.</div></div></div></div><div class="card"><h3>Leitura rápida</h3><div class="legend"><div class="leg"><span>Taxa de aprovação / submetidas</span><b>${pct(m.approvalAllPct)}</b></div><div class="leg"><span>Reprovação / decisões finais</span><b>${pct(m.reprovFinalPct)}</b></div><div class="leg"><span>Indeferimento / decisões finais</span><b>${pct(m.indeferFinalPct)}</b></div><div class="leg"><span>Empresas/CNPJs únicos</span><b>${m.uniqueCompanies}</b></div><div class="leg"><span>Empresas com múltiplas propostas</span><b>${m.companies.filter(x=>x.proposals>1).length}</b></div><div class="note">Valores financeiros exibidos em R$ mil.</div></div></div></div><div class="card" style="margin-bottom:14px"><h3>Distribuição por linha temática</h3><div class="barList">${lineRows(m)}</div><div class="note">Composição do volume de propostas em cada linha: aprovadas, indeferidas, reprovadas e em análise.</div></div><div class="card" style="margin-bottom:14px"><h3>Detalhamento por linha temática</h3>${lineTable(c,m)}</div><div class="split"><div class="card"><h3>Análise das empresas</h3><input class="search" placeholder="Buscar empresa ou CNPJ..." value="${esc(panelState[key].company)}" oninput="renderCompanySearch('${key}',this.value)"/><div id="company-${key}">${companyHtml}</div><div class="note">Lista completa com paginação e ordenação. Os filtros do painel também são aplicados à análise das empresas.</div></div><div class="card geo"><h3>Distribuição geográfica (UF)</h3>${ufTable(c,rows)}<div class="note">Ranking por número de propostas no recorte filtrado.</div></div></div>`}
-
+function makePanel(c,index){panelState[c.key]={line:'Todos',status:'Todos',uf:'Todos',company:'',page:1,companyPage:1,companySortCol:'id',companySortDir:1}; return `<section class="panel ${index===0?'active':''}" id="panel-${c.key}"><div class="titleRow"><div><h2>${esc(c.name)}</h2></div><div class="source">Relatório: resultados parciais até ${c.sourceDate||'10/08/2026'}${c.key==='agro'?' • arquivo atualizado em 10/09/2026':''}</div></div>${panelFilters(c)}<div id="body-${c.key}"></div></section>`}
+function renderPanel(key){
+  const c=calls.find(x=>x.key===key); if(!c)return;
+  const rows=rowsFor(c),m=metricsFor(c,rows);
+  const decided=m.counts.approved+m.counts.final;
+  const companyHtml=companyTable(c,rows);
+  document.getElementById('body-'+key).innerHTML=`<div class="panelTop"><div class="filterPanel" style="margin:0"><div class="filterGrid"><div class="filterField"><label>Linha temática</label><select onchange="setPanelFilter('${c.key}','line',this.value)"><option>Todos</option>${filterOptions(c).lines.map(x=>`<option ${panelState[c.key].line===x?'selected':''}>${esc(x)}</option>`).join('')}</select></div><div class="filterField"><label>Status da proposta</label><select onchange="setPanelFilter('${c.key}','status',this.value)"><option value="Todos">Todos</option><option value="approved" ${panelState[c.key].status==='approved'?'selected':''}>Aprovado</option><option value="reprovado" ${panelState[c.key].status==='reprovado'?'selected':''}>Reprovado</option><option value="indeferido" ${panelState[c.key].status==='indeferido'?'selected':''}>Indeferido</option><option value="analysis" ${panelState[c.key].status==='analysis'?'selected':''}>Em análise</option></select></div><div class="filterField"><label>UF</label><select onchange="setPanelFilter('${c.key}','uf',this.value)"><option>Todos</option>${filterOptions(c).ufs.map(x=>`<option ${panelState[c.key].uf===x?'selected':''}>${x}</option>`).join('')}</select></div></div><div class="filterHint">Filtros aplicados a indicadores, gráficos, tabelas e análise das propostas.</div></div><div class="panelMetrics"><div class="panelMetric"><div class="k">Orçamento do edital</div><div class="v">R$ ${moneyMi1(m.budget)} mi</div><div class="s">valor integral da chamada</div></div><div class="panelMetric"><div class="k">Propostas aprovadas</div><div class="v">${m.counts.approved}</div><div class="s">no recorte atual</div></div><div class="panelMetric"><div class="k">Valor aprovado</div><div class="v">R$ ${moneyMi1(m.approvedValue)} mi</div><div class="s">no recorte atual</div></div><div class="panelMetric"><div class="k">Propostas em análise</div><div class="v">${m.counts.analysis}</div><div class="s">sem decisão final</div></div><div class="panelMetric"><div class="k">Valor em análise</div><div class="v">R$ ${moneyMi1(m.pendingDemand)} mi</div><div class="s">demanda no recorte</div></div></div></div><div class="split4"><div class="card"><h3>Status das propostas</h3><div class="statusRead"><div class="statusWrap"><div class="donut" style="background:${donutBg(m)}"></div><div class="legend"><div class="leg"><span><i class="dot a"></i>Aprovadas</span><b>${m.counts.approved} • ${pct(100*m.counts.approved/(m.counts.submitted||1))}</b></div><div class="leg"><span><i class="dot i"></i>Indeferidas</span><b>${m.counts.indeferido} • ${pct(100*m.counts.indeferido/(m.counts.submitted||1))}</b></div><div class="leg"><span><i class="dot r"></i>Reprovadas</span><b>${m.counts.reprovado} • ${pct(100*m.counts.reprovado/(m.counts.submitted||1))}</b></div><div class="leg"><span><i class="dot p"></i>Em análise</span><b>${m.counts.analysis} • ${pct(100*m.counts.analysis/(m.counts.submitted||1))}</b></div></div></div><div><h3>Leitura rápida</h3><div class="legend"><div class="leg"><span>Taxa de aprovação / submetidas</span><b>${pct(m.approvalAllPct)}</b></div><div class="leg"><span>Reprovação / decisões finais</span><b>${pct(m.reprovFinalPct)}</b></div><div class="leg"><span>Indeferimento / decisões finais</span><b>${pct(m.indeferFinalPct)}</b></div><div class="leg"><span>Saldo disponível no edital</span><b>R$ ${moneyMi1(m.budget-m.approvedValue)} mi</b></div><div class="leg"><span>Ticket médio dos aprovados</span><b>${m.counts.approved?('R$ '+moneyMi1(m.approvedValue/m.counts.approved)+' mi'):'N/D'}</b></div></div></div></div></div><div class="card"><h3>Distribuição por linha temática</h3><div class="barList">${lineRows(m)}</div><div class="note">Composição do volume de propostas em cada linha: aprovadas, indeferidas, reprovadas e em análise.</div></div></div><div class="card" style="margin-bottom:14px"><h3>Detalhamento por linha temática</h3>${lineTable(c,m)}</div><div class="card companyWide"><h3>Análise das empresas</h3><input class="search" placeholder="Buscar empresa ou CNPJ..." value="${esc(panelState[key].company)}" oninput="renderCompanySearch('${key}',this.value)"/><div id="company-${key}">${companyHtml}</div><div class="note">Uma linha por proposta, ordenada inicialmente pela posição cronológica da fila: propostas em análise, depois aprovadas, reprovadas e indeferidas. O ID é a posição da proposta nessa ordenação. A UF e o setor estão associados a cada proposta.</div></div>`;
+}
 function renderBosch(){
   const boschRows=[];
-  calls.forEach(c=>c.rows.forEach(r=>{if((r.company||'').toLowerCase().includes('bosch')) boschRows.push({...r,call:c})}));
+  calls.forEach(c=>c.rows.forEach(r=>{if((r.company||'').toLowerCase().includes('bosch'))boschRows.push({...r,call:c})}));
   const current=boschRows.filter(x=>x.section==='analysis');
   const currentByCall=new Map(current.map(x=>[x.call.key,x.call]));
+  const currentProjects=currentByCall.size;
+  const totalSubmissions=boschRows.length;
   const currentAmount=current.reduce((s,x)=>s+x.amount,0);
   document.getElementById('bosch-summary').innerHTML=`<div class="bosch-summary">
-    <div class="bosch-stat"><div class="k">Total de propostas</div><div class="v">${boschRows.length}</div><div class="s">registros de submissão identificados</div></div>
-    <div class="bosch-stat"><div class="k">Projetos efetivos estimados</div><div class="v">${currentByCall.size}</div><div class="s">1 projeto vigente por edital</div></div>
-    <div class="bosch-stat"><div class="k">Subvenção nas versões vigentes (R$ mil)</div><div class="v">${boschMoney(currentAmount)}</div><div class="s">somente as versões atualmente em análise</div></div>
-    <div class="bosch-stat"><div class="k">Editais com submissão</div><div class="v">${currentByCall.size}</div><div class="s">${[...currentByCall.values()].map(c=>esc(c.name)).join(' • ')}</div></div>
+    <div class="bosch-stat"><div class="k">Projetos e submissões</div><div class="v">${currentProjects} • ${totalSubmissions}</div><div class="s">projetos efetivos estimados • submissões identificadas</div></div>
+    <div class="bosch-stat"><div class="k">Valor total dos projetos</div><div class="v">R$ ${boschMoney(currentAmount)} mil</div><div class="s">valor consolidado das versões vigentes</div></div>
+    <div class="bosch-stat"><div class="k">Valor de subvenção</div><div class="v">R$ ${boschMoney(currentAmount)} mil</div><div class="s">100,0% do valor total dos projetos</div></div>
+    <div class="bosch-stat"><div class="k">Editais com submissões</div><div class="v">${currentProjects}</div><div class="s">${[...currentByCall.values()].map(c=>esc(c.name)).join(' • ')}</div></div>
   </div>`;
   let oppHtml='';
-  [...currentByCall.entries()].forEach(([key,c])=>{
+  [...currentByCall.values()].forEach(c=>{
     const a=c.rows.filter(r=>r.section==='analysis');
     const decisions=c.counts.approved+c.counts.indeferido+c.counts.reprovado;
     const rate=decisions?c.counts.approved/decisions:0;
     const ticket=c.counts.approved?c.approvedValue/c.counts.approved:0;
-    const qTicket=a.length?c.pendingDemand/a.length:0;
     const expected=a.length*rate;
-    const currentBal=c.budget-c.approvedValue;
-    const expectedConsumption=ticket?expected*ticket:expected*qTicket;
-    const saldoHist=currentBal-expectedConsumption;
-    const saldoFila=currentBal-expected*qTicket;
-    oppHtml+=`<div class="bosch-edit"><h3>${esc(c.name)}</h3><div class="sub">${c.sourceDate||'10/09/2026'} • ${a.length} em análise • demanda ${boschMoney(c.pendingDemand)} • R$ mil</div><div class="bosch-metrics">
+    oppHtml+=`<div class="bosch-edit"><h3>${esc(c.name)}</h3><div class="sub">${c.sourceDate||'10/09/2026'} • ${a.length} em análise</div><div class="bosch-metrics">
       <div class="bosch-metric"><div class="k">Taxa histórica</div><div class="v">${rate?boschPct(rate*100):'N/D'}</div><div class="s">aprovação por projeto decidido</div></div>
       <div class="bosch-metric"><div class="k">Ticket aprovado (R$ mil)</div><div class="v">${ticket?boschMoney(ticket):'N/D'}</div><div class="s">média dos aprovados</div></div>
       <div class="bosch-metric"><div class="k">Aprov. esperadas</div><div class="v">${expected.toFixed(1)}</div><div class="s">fila inteira</div></div>
-      <div class="bosch-metric"><div class="k">Consumo esperado (R$ mil)</div><div class="v">${boschMoney(expectedConsumption)}</div><div class="s">modelo histórico</div></div>
-      <div class="bosch-metric"><div class="k">Saldo pós-fila (R$ mil)</div><div class="v">${boschMoney(saldoHist)}</div><div class="s">ticket dos aprovados</div></div>
-      <div class="bosch-metric"><div class="k">Saldo pós-fila (R$ mil)</div><div class="v">${boschMoney(saldoFila)}</div><div class="s">ticket médio da fila</div></div>
     </div></div>`;
   });
   document.getElementById('bosch-opportunities').innerHTML=oppHtml;
@@ -235,15 +319,16 @@ function renderBosch(){
     const klass=boschClass(Math.max(balanceAtArrival===null?balanceAtArrivalQueue:balanceAtArrival,balanceAtArrivalQueue),x.amount);
     const trajectory=c.rows.filter(r=>r.cnpj===x.cnpj&&r.line===x.line);
     const trajHtml=trajectory.map(r=>`<li><span>${esc(r.ref)}</span> — ${r.section==='analysis'?'Em análise':esc(r.status)}</li>`).join('');
-    rows+=`<tr><td><span class="bosch-pill">${esc(x.ref)}</span><br><span style="color:var(--muted)">${esc(c.name)}</span></td><td>${esc(x.company)}</td><td>${esc(x.line)}</td><td class="money">${boschMoney(x.amount)}</td><td>${pos} / ${a.length}<br><span style="color:var(--muted)">${ahead} à frente</span></td><td>${rate?boschPct(rate*100):'N/D'}</td><td>${rate?expectedAhead.toFixed(1):'N/D'}</td><td>${ticket?boschMoney(ticket):'N/D'}</td><td>${balanceAtArrival===null?'N/D':boschMoney(balanceAtArrival)}</td><td>${boschMoney(balanceAtArrivalQueue)}</td><td><span class="bosch-status ${klass[1]}">${klass[0]}</span></td><td><ul class="traj">${trajHtml}</ul></td></tr>`;
+    const name=(x.company||'').toLowerCase().includes('solucoes integradas')?'BISB':((x.company||'').toLowerCase().includes('robert bosch')?'RBLA':x.company);
+    rows+=`<tr><td><span class="bosch-pill">${esc(x.ref)}</span><br><span style="color:var(--muted)">${esc(c.name)}</span></td><td>${esc(name)}</td><td>${esc(x.line)}</td><td class="money">${boschMoney(x.amount)}</td><td>${pos} / ${a.length}<br><span style="color:var(--muted)">${ahead} à frente</span></td><td>${rate?boschPct(rate*100):'N/D'}</td><td>${rate?expectedAhead.toFixed(1):'N/D'}</td><td>${ticket?boschMoney(ticket):'N/D'}</td><td>${balanceAtArrival===null?'N/D':boschMoney(balanceAtArrival)}</td><td>${boschMoney(balanceAtArrivalQueue)}</td><td><span class="bosch-status ${klass[1]}">${klass[0]}</span></td><td><ul class="traj">${trajHtml}</ul></td></tr>`;
   });
   document.getElementById('bosch-proposals').innerHTML=`<h3>PROPOSTAS BOSCH ATUALMENTE NA FILA</h3><div class="bosch-table-wrap"><table class="bosch-table" id="boschTable"><thead><tr><th class="sortable" onclick="sortTable('boschTable',0,'text',this)">Edital / referência</th><th class="sortable" onclick="sortTable('boschTable',1,'text',this)">Empresa</th><th class="sortable" onclick="sortTable('boschTable',2,'text',this)">Linha temática</th><th class="sortable money" onclick="sortTable('boschTable',3,'number',this)">Subvenção (R$ mil)</th><th class="sortable" onclick="sortTable('boschTable',4,'number',this)">Posição na fila</th><th class="sortable" onclick="sortTable('boschTable',5,'number',this)">Taxa hist.</th><th class="sortable" onclick="sortTable('boschTable',6,'number',this)">Aprov. esperadas antes</th><th class="sortable" onclick="sortTable('boschTable',7,'number',this)">Ticket médio aprovado (R$ mil)</th><th class="sortable" onclick="sortTable('boschTable',8,'number',this)">Saldo esperado na chegada (R$ mil)</th><th class="sortable" onclick="sortTable('boschTable',9,'number',this)">Saldo — ticket da fila (R$ mil)</th><th class="sortable" onclick="sortTable('boschTable',10,'text',this)">Oportunidade</th><th>Trajetória</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
-
-document.getElementById('panorama').innerHTML=[['Orçamento total',moneyMi(agg.budget),'R$ milhão • 7 chamadas'],['Propostas',agg.submitted.toLocaleString('pt-BR'),'base consolidada'],['Aprovadas',agg.approved+' • '+pct(100*agg.approved/agg.submitted),'sobre submetidas'],['Indeferidas',agg.indeferido.toLocaleString('pt-BR'),'decisão final'],['Reprovadas',agg.reprovado.toLocaleString('pt-BR'),'decisão final'],['Em análise',agg.analysis.toLocaleString('pt-BR'),'sem decisão final'],['Valor aprovado',moneyMi(agg.approvedValue),'R$ milhão • total das chamadas']].map(x=>`<div class="kpi"><div class="label">${x[0]}</div><div class="value">${x[1]}</div><div class="sub">${x[2]}</div></div>`).join('');
+document.getElementById('panorama').innerHTML=[['▦','Propostas submetidas',agg.submitted.toLocaleString('pt-BR'),'base consolidada'],['✓','Propostas aprovadas',agg.approved.toLocaleString('pt-BR'),'propostas com aprovação'],['!','Propostas indeferidas e reprovadas',(agg.indeferido+agg.reprovado).toLocaleString('pt-BR'),'decisões negativas'],['◷','Valor disponível','R$ '+moneyMi1(agg.budget)+' mi','orçamento total das chamadas'],['R$','Valor aprovado','R$ '+moneyMi1(agg.approvedValue)+' mi','recursos aprovados'],['Σ','Valor saldo disponível','R$ '+moneyMi1(agg.budget-agg.approvedValue)+' mi','orçamento menos aprovados']].map(x=>`<div class="kpi"><div class="icon">${x[0]}</div><div class="label">${x[1]}</div><div class="value">${x[2]}</div><div class="sub">${x[3]}</div></div>`).join('');
 document.getElementById('panels').innerHTML=calls.map(makePanel).join('');
 calls.forEach(c=>renderPanel(c.key));
 renderBosch();
+const themeBtn=document.getElementById('themeToggle'); themeBtn.addEventListener('click',()=>{document.body.classList.toggle('dark'); localStorage.setItem('finepTheme',document.body.classList.contains('dark')?'dark':'light')}); if(localStorage.getItem('finepTheme')==='dark')document.body.classList.add('dark');
 document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));btn.classList.add('active');document.getElementById('panel-'+btn.dataset.key).classList.add('active');history.replaceState(null,'','#'+btn.dataset.key)}));
 const hash=location.hash.slice(1); if(hash){const b=document.querySelector(`.tab[data-key="${hash}"]`); if(b)b.click()}
 </script>
