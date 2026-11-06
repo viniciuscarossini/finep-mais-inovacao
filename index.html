@@ -141,6 +141,47 @@ body.dark .themeToggle .knob{left:26px}
 
 
 body.dark{--bg:#101819;--card:#172120;--ink:#e7eeee;--muted:#9eb0af;--teal:#7fd8d2;--teal2:#66c7c0;--line:#304140;--shadow:0 10px 30px rgba(0,0,0,.22);background:linear-gradient(180deg,#111817 0%,#101819 100%);color:#e7eeee}.dark .card,.dark .filterPanel,.dark .panelMetric,.dark .kpi,.dark .mini,.dark .bosch-stat,.dark .bosch-edit,.dark .bosch-metric,.dark .tableWrap,.dark .bosch-table-wrap{background:#172120;color:#e7eeee}.dark table,.dark .bosch-table{background:#172120}.dark thead th,.dark .bosch-table th{background:#1d2a29;color:#b7c9c7}.dark tbody td,.dark .bosch-table td{border-color:#2b3a39}.dark .tab{background:#172120;color:#dbe8e7;border-color:#304140}.dark .tabbar{background:rgba(16,24,25,.92)}
+
+/* --- Revisão de UX: cabeçalhos ordenáveis, responsividade e leitura --- */
+:root{--shadow:0 1px 2px rgba(11,37,39,.06),0 4px 14px rgba(11,37,39,.04)}
+.sortable{cursor:pointer;user-select:none;position:relative}
+.sortable:focus-visible{outline:2px solid var(--teal);outline-offset:-2px;border-radius:4px}
+.sortable:hover{color:var(--teal)}
+.sortable::after{content:" ↕";font-size:10px;color:#9aa8b7;margin-left:2px}
+.sortable.sorted-asc::after{content:" ↑";color:var(--teal)}
+.sortable.sorted-desc::after{content:" ↓";color:var(--teal)}
+.lineTableWrap{overflow-x:auto}
+.kpi .value{white-space:nowrap;overflow-wrap:normal}
+.bosch-table td,.lineTable td,.companyDetailTable td{font-variant-numeric:tabular-nums}
+.bosch-table td.money,.lineTable td.num,.companyDetailTable td.num{text-align:right}
+@media (max-width:640px){
+  .wrap{padding:12px}
+  .header{padding:16px}
+  .header h1{font-size:20px}
+  .panorama{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .kpi .value{font-size:19px}
+  .tableWrap,.bosch-table-wrap,.lineTableWrap{overflow:visible;border:0;background:transparent;box-shadow:none}
+  table.bosch-table,table.lineTable,table.companyDetailTable{min-width:0!important;width:100%;table-layout:auto;display:block;background:transparent}
+  table colgroup{display:none}
+  table thead{display:block;position:static;overflow:visible;margin-bottom:10px;background:transparent}
+  table thead tr{display:flex;flex-wrap:wrap;gap:6px;background:transparent}
+  table thead th{display:inline-flex;align-items:center;flex:0 0 auto;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12px;letter-spacing:0;text-transform:none;color:var(--ink);position:static;white-space:normal;max-width:100%;line-height:1.3}
+  table tbody{display:flex;flex-direction:column;gap:10px}
+  table tbody tr{display:flex;flex-direction:column;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  table td{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;width:auto;border:0 !important;padding:2px 0;font-size:13px;line-height:1.45;white-space:normal;overflow:visible;text-overflow:clip;text-align:right;min-width:0;overflow-wrap:anywhere}
+  table td::before{content:attr(data-label);color:var(--muted);font-size:12px;text-align:left;flex:0 0 auto;max-width:44%}
+  table td:first-child{justify-content:flex-start;text-align:left;font-weight:600;font-size:14px}
+  table td:first-child::before{content:none}
+  table td{flex-wrap:wrap}
+  table tbody,table tbody tr{min-width:0;max-width:100%}
+  table td{white-space:normal !important;min-width:0 !important}
+  table td.num,table td.money{white-space:nowrap !important}
+  .companyDetailTable th,.companyDetailTable td{width:auto !important}
+  table td>*{max-width:100%;min-width:0;white-space:normal;overflow-wrap:anywhere}
+  table td .badge,table td .sectorTag{display:inline-block;white-space:normal;text-align:center}
+  table td.money,table td.num{white-space:nowrap}
+  .companyPager{flex-wrap:wrap;gap:8px}
+}
 </style>
 </head>
 <body>
@@ -271,7 +312,7 @@ function companyTable(c,rows){
   const sortCol=st.companySortCol||'id', sortDir=st.companySortDir||1;
   const fieldMap={id:'id',ref:'ref',company:'company',sector:'sector',uf:'uf',status:'statusLabel',line:'line',amount:'amount'};
   const sf=fieldMap[sortCol]||'id';
-  arr.sort((a,b)=>{const av=sortCol==='company'?displayCompany(a.company):a[sf],bv=sortCol==='company'?displayCompany(b.company):b[sf]; const cmp=typeof av==='number'?(av-bv):String(av??'').localeCompare(String(bv??''),'pt-BR',{sensitivity:'base'}); return cmp*sortDir});
+  arr.sort((a,b)=>{const av=sortCol==='company'?displayCompany(a.company):a[sf],bv=sortCol==='company'?displayCompany(b.company):b[sf]; const cmp=sortCol==='ref'?refCmp(av,bv):typeof av==='number'?(av-bv):String(av??'').localeCompare(String(bv??''),'pt-BR',{sensitivity:'base'}); return cmp*sortDir});
   const totalPages=Math.max(1,Math.ceil(arr.length/15)); st.companyPage=Math.min(st.companyPage||1,totalPages); const page=st.companyPage; const pageArr=arr.slice((page-1)*15,(page-1)*15+15);
   if(!pageArr.length)return '<div class="empty">Nenhuma proposta encontrada.</div>';
   const th=(label,col,cls='')=>`<th class="sortable ${cls} ${sortCol===col?(sortDir>0?'sorted-asc':'sorted-desc'):''}" onclick="sortCompanyRows('${key}','${col}')">${label}</th>`;
@@ -342,7 +383,7 @@ function renderBosch(){
     const name=displayCompany(x.company);
     rows+=`<tr><td><span class="bosch-pill">${esc(x.ref)}</span><br><span style="color:var(--muted)">${esc(c.name)}</span></td><td>${esc(name)}</td><td>${esc(lineLabel(x.line))}</td><td class="money">R$ ${boschMoney(x.amount)} mi</td><td>${pos} / ${a.length}<br><span style="color:var(--muted)">${ahead} à frente</span></td><td>${rate?boschPct(rate*100):'N/D'}</td><td>${rate?expectedAhead.toFixed(1):'N/D'}</td><td>${ticket?('R$ '+boschMoney(ticket)+' mi'):'N/D'}</td><td>${balanceAtArrival===null?'N/D':'R$ '+boschMoney(balanceAtArrival)+' mi'}</td><td>R$ ${boschMoney(balanceAtArrivalQueue)} mi</td><td><span class="bosch-status ${klass[1]}">${klass[0]}</span></td><td><ul class="traj">${trajHtml}</ul></td></tr>`;
   });
-  document.getElementById('bosch-proposals').innerHTML=`<h3>PROPOSTAS BOSCH ATUALMENTE NA FILA</h3><div class="bosch-table-wrap"><table class="bosch-table" id="boschTable"><colgroup><col style="width:145px"><col style="width:110px"><col style="width:170px"><col style="width:95px"><col style="width:100px"><col style="width:70px"><col style="width:90px"><col style="width:120px"><col style="width:120px"><col style="width:115px"><col style="width:95px"><col style="width:270px"></colgroup><thead><tr><th class="sortable" onclick="sortTable('boschTable',0,'text',this)">Edital / referência</th><th class="sortable" onclick="sortTable('boschTable',1,'text',this)">Empresa</th><th class="sortable" onclick="sortTable('boschTable',2,'text',this)">Linha temática</th><th class="sortable money" onclick="sortTable('boschTable',3,'number',this)">Subvenção (R$ mi)</th><th class="sortable" onclick="sortTable('boschTable',4,'number',this)">Posição na fila</th><th class="sortable" onclick="sortTable('boschTable',5,'number',this)">Taxa hist.</th><th class="sortable" onclick="sortTable('boschTable',6,'number',this)">Aprov. esperadas antes</th><th class="sortable" onclick="sortTable('boschTable',7,'number',this)">Ticket médio aprovado (R$ mi)</th><th class="sortable" onclick="sortTable('boschTable',8,'number',this)">Saldo esperado na chegada (R$ mi)</th><th class="sortable" onclick="sortTable('boschTable',9,'number',this)">Saldo — ticket da fila (R$ mi)</th><th class="sortable" onclick="sortTable('boschTable',10,'text',this)">Oportunidade</th><th>Trajetória</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  document.getElementById('bosch-proposals').innerHTML=`<h3>PROPOSTAS BOSCH ATUALMENTE NA FILA</h3><div class="bosch-table-wrap"><table class="bosch-table" id="boschTable"><colgroup><col style="width:145px"><col style="width:110px"><col style="width:170px"><col style="width:95px"><col style="width:100px"><col style="width:70px"><col style="width:90px"><col style="width:120px"><col style="width:120px"><col style="width:115px"><col style="width:95px"><col style="width:270px"></colgroup><thead><tr><th class="sortable" onclick="sortTable('boschTable',0,'text',this)">Edital / referência</th><th class="sortable" onclick="sortTable('boschTable',1,'text',this)">Empresa</th><th class="sortable" onclick="sortTable('boschTable',2,'text',this)">Linha temática</th><th class="sortable money" onclick="sortTable('boschTable',3,'number',this)">Subvenção (R$ mi)</th><th class="sortable" onclick="sortTable('boschTable',4,'number',this)">Posição na fila</th><th class="sortable" onclick="sortTable('boschTable',5,'number',this)">Taxa hist.</th><th class="sortable" onclick="sortTable('boschTable',6,'number',this)">Aprov. esperadas antes</th><th class="sortable" onclick="sortTable('boschTable',7,'number',this)">Ticket médio aprovado (R$ mi)</th><th class="sortable" onclick="sortTable('boschTable',8,'number',this)">Saldo esperado na chegada (R$ mi)</th><th class="sortable" onclick="sortTable('boschTable',9,'number',this)">Saldo — ticket da fila (R$ mi)</th><th class="sortable" onclick="sortTable('boschTable',10,'text',this)">Oportunidade</th><th class="sortable" onclick="sortTable('boschTable',11,'text',this)">Trajetória</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 document.getElementById('panorama').innerHTML=[['▦','Propostas submetidas',agg.submitted.toLocaleString('pt-BR'),'base consolidada'],['✓','Propostas aprovadas',agg.approved.toLocaleString('pt-BR'),'propostas com aprovação'],['!','Propostas indeferidas e reprovadas',(agg.indeferido+agg.reprovado).toLocaleString('pt-BR'),'decisões negativas'],['◷','Valor disponível','R$ '+moneyMi1(agg.budget)+' mi','orçamento total das chamadas'],['R$','Valor aprovado','R$ '+moneyMi1(agg.approvedValue)+' mi','recursos aprovados'],['Σ','Valor saldo disponível','R$ '+moneyMi1(agg.budget-agg.approvedValue)+' mi','orçamento menos aprovados']].map(x=>`<div class="kpi"><div class="icon">${x[0]}</div><div class="label">${x[1]}</div><div class="value">${x[2]}</div><div class="sub">${x[3]}</div></div>`).join('');
 document.getElementById('panels').innerHTML=calls.map(makePanel).join('');
@@ -383,5 +424,46 @@ function addOctoberComparisons(){
  }
 }
 addOctoberComparisons();
+</script>
+
+<script>
+/* Decoração das tabelas: acessibilidade do cabeçalho ordenável e rótulos para o modo cartão */
+(function(){
+  const SEL='table.bosch-table,table.lineTable,table.companyDetailTable';
+  function decorate(){
+    document.querySelectorAll(SEL).forEach(t=>{
+      if(!t.tHead||!t.tHead.rows[0]) return;
+      const heads=[...t.tHead.rows[0].cells];
+      const labels=heads.map(h=>h.textContent.replace(/\s+/g,' ').trim());
+      heads.forEach((h,i)=>{
+        if(h.classList.contains('sortable')){
+          h.tabIndex=0;
+          h.setAttribute('role','columnheader');
+          const st=h.classList.contains('sorted-asc')?'ascending':h.classList.contains('sorted-desc')?'descending':'none';
+          if(h.getAttribute('aria-sort')!==st) h.setAttribute('aria-sort',st);
+        }
+      });
+      [...(t.tBodies[0]?t.tBodies[0].rows:[])].forEach(r=>{
+        [...r.cells].forEach((c,i)=>{
+          const lbl=labels[i]||'';
+          if(c.getAttribute('data-label')!==lbl) c.setAttribute('data-label',lbl);
+        });
+      });
+    });
+  }
+  let queued=false;
+  function schedule(){ if(queued) return; queued=true; requestAnimationFrame(()=>{queued=false; decorate();}); }
+  document.addEventListener('keydown',e=>{
+    if((e.key==='Enter'||e.key===' ')&&e.target&&e.target.matches&&e.target.matches('th.sortable')){
+      e.preventDefault(); e.target.click();
+    }
+  });
+  new MutationObserver(schedule).observe(document.body,{childList:true,subtree:true});
+  decorate();
+})();
+</script>
+<script>
+/* Referências no formato 0508/26: ordena pelo ano e depois pelo número */
+function refCmp(a,b){const pa=String(a??'').split('/'),pb=String(b??'').split('/');const ya=pa[1]?parseInt(pa[1],10):99999,yb=pb[1]?parseInt(pb[1],10):99999;if(ya!==yb)return ya-yb;return (parseInt(pa[0],10)||0)-(parseInt(pb[0],10)||0)}
 </script>
 </body></html>
