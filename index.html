@@ -377,7 +377,7 @@ function renderBosch(){
     const expectedAhead=ahead*p;
     const saldoFila=S-expectedAhead*T;
     const analisadas=(p*T>0)?S/(p*T):null;
-    const oport=!T?['N/D','']:saldoFila<0?['Alto risco','risk']:saldoFila<x.amount?['Saldo insuficiente','warn']:['Cobertura estimada',''];
+    const saldoApos=saldoFila-x.amount; const multTicket=T?saldoApos/T:null; const oport=!T?['N/D','']:saldoApos<0?['Baixa','risk']:multTicket>=2?['Muito alta','']:['Alta',''];
     const trajectory=c.rows.filter(r=>r.cnpj===x.cnpj&&lineLabel(r.line)===lineLabel(x.line));
     const trajHtml=trajectory.map(r=>`<li><span>${esc(r.ref)}</span> — ${r.section==='analysis'?'Em análise':esc(r.status)}</li>`).join('');
     const linhaNum=(String(lineLabel(x.line)).match(/\d+/)||['N/D'])[0];
