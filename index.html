@@ -364,26 +364,26 @@ function renderBosch(){
     </div></div>`;
   });
   document.getElementById('bosch-opportunities').innerHTML=oppHtml;
+  const SHORT={circular:'Economia Circular',digital:'Tecnologias Digitais',energia:'Transição Energética',mobilidade:'Mobilidade Sustentável',agro:'Cadeias Agroindustriais',mineral:'Transformação Mineral',semicondutores:'Semicondutores'};
   let rows='';
   current.forEach(x=>{
     const c=x.call, a=c.rows.filter(r=>r.section==='analysis');
     const pos=a.findIndex(r=>r.ref===x.ref&&r.cnpj===x.cnpj)+1;
     const ahead=pos-1;
     const decisions=c.counts.approved+c.counts.indeferido+c.counts.reprovado;
-    const rate=decisions?c.counts.approved/decisions:0;
-    const ticket=c.counts.approved?c.approvedValue/c.counts.approved:0;
-    const qTicket=a.length?c.pendingDemand/a.length:0;
-    const currentBal=c.budget-c.approvedValue;
-    const expectedAhead=ahead*rate;
-    const balanceAtArrival=ticket?currentBal-expectedAhead*ticket:null;
-    const balanceAtArrivalQueue=currentBal-expectedAhead*qTicket;
-    const klass=boschClass(Math.max(balanceAtArrival===null?balanceAtArrivalQueue:balanceAtArrival,balanceAtArrivalQueue),x.amount);
+    const p=decisions?c.counts.approved/decisions:0;
+    const T=c.counts.approved?c.approvedValue/c.counts.approved:0;
+    const S=c.budget-c.approvedValue;
+    const expectedAhead=ahead*p;
+    const saldoFila=S-expectedAhead*T;
+    const analisadas=(p*T>0)?S/(p*T):null;
+    const oport=!T?['N/D','']:saldoFila<0?['Alto risco','risk']:saldoFila<x.amount?['Saldo insuficiente','warn']:['Cobertura estimada',''];
     const trajectory=c.rows.filter(r=>r.cnpj===x.cnpj&&lineLabel(r.line)===lineLabel(x.line));
     const trajHtml=trajectory.map(r=>`<li><span>${esc(r.ref)}</span> — ${r.section==='analysis'?'Em análise':esc(r.status)}</li>`).join('');
-    const name=displayCompany(x.company);
-    rows+=`<tr><td><span class="bosch-pill">${esc(x.ref)}</span><br><span style="color:var(--muted)">${esc(c.name)}</span></td><td>${esc(name)}</td><td>${esc(lineLabel(x.line))}</td><td class="money">R$ ${boschMoney(x.amount)} mi</td><td>${pos} / ${a.length}<br><span style="color:var(--muted)">${ahead} à frente</span></td><td>${rate?boschPct(rate*100):'N/D'}</td><td>${rate?expectedAhead.toFixed(1):'N/D'}</td><td>${ticket?('R$ '+boschMoney(ticket)+' mi'):'N/D'}</td><td>${balanceAtArrival===null?'N/D':'R$ '+boschMoney(balanceAtArrival)+' mi'}</td><td>R$ ${boschMoney(balanceAtArrivalQueue)} mi</td><td><span class="bosch-status ${klass[1]}">${klass[0]}</span></td><td><ul class="traj">${trajHtml}</ul></td></tr>`;
+    const linhaNum=(String(lineLabel(x.line)).match(/\d+/)||['N/D'])[0];
+    rows+=`<tr><td><span class="bosch-pill">${esc(x.ref)}</span></td><td>${esc(SHORT[c.key]||c.name)}</td><td>${linhaNum}</td><td class="money">R$ ${boschMoney(x.amount)} mi</td><td>${pos} / ${a.length}<br><span style="color:var(--muted)">${ahead} à frente</span></td><td>${p?boschPct(p*100):'N/D'}</td><td>${p?expectedAhead.toFixed(1):'N/D'}</td><td>${analisadas===null?'N/D':Math.round(analisadas)}</td><td>${T?'R$ '+boschMoney(saldoFila)+' mi':'N/D'}</td><td><span class="bosch-status ${oport[1]}">${oport[0]}</span></td><td><ul class="traj">${trajHtml}</ul></td></tr>`;
   });
-  document.getElementById('bosch-proposals').innerHTML=`<h3>PROPOSTAS BOSCH ATUALMENTE NA FILA</h3><div class="bosch-table-wrap"><table class="bosch-table" id="boschTable"><colgroup><col style="width:145px"><col style="width:110px"><col style="width:170px"><col style="width:95px"><col style="width:100px"><col style="width:70px"><col style="width:90px"><col style="width:120px"><col style="width:120px"><col style="width:115px"><col style="width:95px"><col style="width:270px"></colgroup><thead><tr><th class="sortable" onclick="sortTable('boschTable',0,'text',this)">Edital / referência</th><th class="sortable" onclick="sortTable('boschTable',1,'text',this)">Empresa</th><th class="sortable" onclick="sortTable('boschTable',2,'text',this)">Linha temática</th><th class="sortable money" onclick="sortTable('boschTable',3,'number',this)">Subvenção (R$ mi)</th><th class="sortable" onclick="sortTable('boschTable',4,'number',this)">Posição na fila</th><th class="sortable" onclick="sortTable('boschTable',5,'number',this)">Taxa hist.</th><th class="sortable" onclick="sortTable('boschTable',6,'number',this)">Aprov. esperadas antes</th><th class="sortable" onclick="sortTable('boschTable',7,'number',this)">Ticket médio aprovado (R$ mi)</th><th class="sortable" onclick="sortTable('boschTable',8,'number',this)">Saldo esperado na chegada (R$ mi)</th><th class="sortable" onclick="sortTable('boschTable',9,'number',this)">Saldo — ticket da fila (R$ mi)</th><th class="sortable" onclick="sortTable('boschTable',10,'text',this)">Oportunidade</th><th class="sortable" onclick="sortTable('boschTable',11,'text',this)">Trajetória</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  document.getElementById('bosch-proposals').innerHTML=`<h3>PROPOSTAS BOSCH ATUALMENTE NA FILA</h3><div class="bosch-table-wrap"><table class="bosch-table" id="boschTable"><colgroup><col style="width:120px"><col style="width:170px"><col style="width:80px"><col style="width:110px"><col style="width:105px"><col style="width:90px"><col style="width:110px"><col style="width:120px"><col style="width:120px"><col style="width:150px"><col style="width:270px"></colgroup><thead><tr><th class="sortable" onclick="sortTable('boschTable',0,'text',this)">Proposta</th><th class="sortable" onclick="sortTable('boschTable',1,'text',this)">Edital</th><th class="sortable" onclick="sortTable('boschTable',2,'number',this)">Linha Temática</th><th class="sortable money" onclick="sortTable('boschTable',3,'number',this)">Subvenção (R$ mi)</th><th class="sortable" onclick="sortTable('boschTable',4,'number',this)">Posição na fila</th><th class="sortable" onclick="sortTable('boschTable',5,'number',this)">Taxa de aprovação</th><th class="sortable" onclick="sortTable('boschTable',6,'number',this)">Total de aprovações esperadas</th><th class="sortable" onclick="sortTable('boschTable',7,'number',this)">Total de propostas analisadas</th><th class="sortable" onclick="sortTable('boschTable',8,'number',this)">Saldo da fila (R$ mi)</th><th class="sortable" onclick="sortTable('boschTable',9,'text',this)">Oportunidade</th><th class="sortable" onclick="sortTable('boschTable',10,'text',this)">Trajetória</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 document.getElementById('panorama').innerHTML=[['▦','Propostas submetidas',agg.submitted.toLocaleString('pt-BR'),'base consolidada'],['✓','Propostas aprovadas',agg.approved.toLocaleString('pt-BR'),'propostas com aprovação'],['!','Propostas indeferidas e reprovadas',(agg.indeferido+agg.reprovado).toLocaleString('pt-BR'),'decisões negativas'],['◷','Valor disponível','R$ '+moneyMi1(agg.budget)+' mi','orçamento total das chamadas'],['R$','Valor aprovado','R$ '+moneyMi1(agg.approvedValue)+' mi','recursos aprovados'],['Σ','Valor saldo disponível','R$ '+moneyMi1(agg.budget-agg.approvedValue)+' mi','orçamento menos aprovados']].map(x=>`<div class="kpi"><div class="icon">${x[0]}</div><div class="label">${x[1]}</div><div class="value">${x[2]}</div><div class="sub">${x[3]}</div></div>`).join('');
 document.getElementById('panels').innerHTML=calls.map(makePanel).join('');
