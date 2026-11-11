@@ -406,7 +406,7 @@ tr.detail td::before{content:none!important}
     </div>
     <div class="tbl-wrap" style="margin-top:12px">
       <table id="approved-table">
-        <colgroup><col style="width:120px"><col><col style="width:110px"><col style="width:110px"><col style="width:190px"><col style="width:56px"></colgroup>
+        <colgroup><col style="width:96px"><col style="width:22%"><col style="width:36%"><col style="width:96px"><col style="width:100px"><col style="width:104px"><col style="width:52px"></colgroup>
         <thead><tr>
           <th class="sortable" data-type="text" tabindex="0">Código<span class="arr"> ↕</span></th>
           <th class="sortable" data-type="text" tabindex="0">Empresa<span class="arr"> ↕</span></th>
@@ -630,7 +630,7 @@ tr.detail td::before{content:none!important}
     if(state.line!=='Todas') rows=rows.filter(r=>r[6]===state.line);
     if(state.uf!=='Todas') rows=rows.filter(r=>r[7]===state.uf);
     if(state.status!=='Todos'&&state.status!=='Aprovada') rows=[];
-    const data=rows.map(r=>[r[0],r[1],r[2],r[4],r[5],lineLabel(c.key,r[6]),r[7],r[3],r[8],r[9],r[10],r[11],r[12],r[13]]);
+    const data=rows.map(r=>[r[0],r[1],r[2],r[4],r[5],r[6],r[7],r[3],r[8],r[9],r[10],r[11],r[12],r[13]]);
     applySort(data,state.approvedSort);
     document.getElementById('approvedCount').textContent=data.length+(data.length===1?' proposta':' propostas');
     const open=state.openApproved||(state.openApproved=new Set());
