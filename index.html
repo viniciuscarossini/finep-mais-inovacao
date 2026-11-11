@@ -158,6 +158,7 @@ td.nowrap{white-space:nowrap}
 .detail-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,0.8fr);gap:12px;padding:4px 0}
 .dcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
 .dlabel{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;font-weight:600}
+.dtitle{font-weight:600;font-size:15px;line-height:1.35;margin:2px 0 10px;overflow-wrap:break-word}
 .dcard p{margin:0;font-size:13px;line-height:1.55;overflow-wrap:break-word}
 .dkv{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;margin:0;font-size:13px}
 .dkv dt{color:var(--muted)}
@@ -406,19 +407,20 @@ tr.detail td::before{content:none!important}
     </div>
     <div class="tbl-wrap" style="margin-top:12px">
       <table id="approved-table">
-        <colgroup><col style="width:96px"><col style="width:22%"><col style="width:36%"><col style="width:96px"><col style="width:100px"><col style="width:104px"><col style="width:52px"></colgroup>
+        <colgroup><col style="width:110px"><col><col style="width:100px"><col style="width:104px"><col style="width:104px"><col style="width:132px"><col style="width:52px"></colgroup>
         <thead><tr>
           <th class="sortable" data-type="text" tabindex="0">Código<span class="arr"> ↕</span></th>
           <th class="sortable" data-type="text" tabindex="0">Empresa<span class="arr"> ↕</span></th>
-          <th class="sortable" data-type="text" tabindex="0">Projeto<span class="arr"> ↕</span></th>
           <th class="sortable num" data-type="num" tabindex="0">Valor do projeto (R$ mi)<span class="arr"> ↕</span></th>
           <th class="sortable num" data-type="num" tabindex="0">Subvenção (R$ mi)<span class="arr"> ↕</span></th>
           <th class="sortable" data-type="text" tabindex="0">Linha temática<span class="arr"> ↕</span></th>
+          <th class="sortable" data-type="text" tabindex="0">Status<span class="arr"> ↕</span></th>
           <th class="sortable" data-type="text" tabindex="0">UF<span class="arr"> ↕</span></th>
         </tr></thead>
         <tbody id="approved-body"></tbody>
       </table>
     </div>
+    <div class="pager"><span id="apPagerInfo"></span><div class="btns" id="apPagerBtns"></div></div>
     <p class="note small">Projeto e valor do projeto vêm dos contratos da Finep (planilha de contratação). Sem contrato, esses campos ficam em branco. Clique no + para ver a descrição resumida e o resumo publicável.</p>
   </div>
 
@@ -477,7 +479,7 @@ tr.detail td::before{content:none!important}
 
   /* ---------- Estado ---------- */
   let current=0;
-  const state={line:'Todas',status:'Todos',uf:'Todas',search:'',page:1,pageSize:10,
+  const state={line:'Todas',status:'Todos',uf:'Todas',search:'',page:1,apPage:1,pageSize:10,
     companySort:{col:0,dir:1}, lineSort:{col:0,dir:1}, approvedSort:{col:0,dir:1}, boschSort:{col:-1,dir:1}};
 
   /* ---------- Abas ---------- */
@@ -559,7 +561,7 @@ tr.detail td::before{content:none!important}
   }
 
   function selectCall(i){
-    current=i; state.page=1;
+    current=i; state.page=1; state.apPage=1;
     buildFilters(CALLS[i]);
     [...tabs.children].forEach((b,j)=>b.setAttribute('aria-selected',j===i?'true':'false'));
     sel.value=i;
@@ -572,7 +574,7 @@ tr.detail td::before{content:none!important}
       state.line=document.getElementById('fLine').value;
       state.status=document.getElementById('fStatus').value;
       state.uf=document.getElementById('fUf').value;
-      state.page=1; render();
+      state.page=1; state.apPage=1; render();
     });
   });
   document.getElementById('search').addEventListener('input',e=>{state.search=e.target.value.trim().toLowerCase(); state.page=1; renderCompanies();});
@@ -624,28 +626,36 @@ tr.detail td::before{content:none!important}
     markSort('line-table',state.lineSort);
   }
 
+  function apStatus(r){ return r[9] ? 'Em execução' : 'Em contratação'; }
   function renderApproved(c){
     const body=document.getElementById('approved-body');
     let rows=(APPROVED[c.key]||[]);
     if(state.line!=='Todas') rows=rows.filter(r=>r[6]===state.line);
     if(state.uf!=='Todas') rows=rows.filter(r=>r[7]===state.uf);
     if(state.status!=='Todos'&&state.status!=='Aprovada') rows=[];
-    const data=rows.map(r=>[r[0],r[1],r[2],r[4],r[5],r[6],r[7],r[3],r[8],r[9],r[10],r[11],r[12],r[13]]);
+    // índices: 0 Código, 1 Empresa, 2 Valor do projeto, 3 Subvenção, 4 Linha, 5 Status, 6 UF; 7+ dados da sanfona
+    const data=rows.map(r=>[r[0],r[1],r[4],r[5],r[6],apStatus(r),r[7],r[2],r[3],r[9],r[10],r[11],r[12],r[13]]);
     applySort(data,state.approvedSort);
-    document.getElementById('approvedCount').textContent=data.length+(data.length===1?' proposta':' propostas');
+    const total=data.length;
+    const pages=Math.max(1,Math.ceil(total/state.pageSize));
+    if(state.apPage>pages) state.apPage=pages;
+    const start=(state.apPage-1)*state.pageSize, slice=data.slice(start,start+state.pageSize);
+    document.getElementById('approvedCount').textContent=total+(total===1?' proposta':' propostas');
     const open=state.openApproved||(state.openApproved=new Set());
-    body.innerHTML=data.length?data.map(r=>{
-      const isOpen=open.has(r[0]);
+    body.innerHTML=slice.length?slice.map(r=>{
+      const hasContract=r[5]==='Em execução';
+      const isOpen=hasContract&&open.has(r[0]);
+      const btn=hasContract?`<button class="exp" type="button" data-ref="${esc(r[0])}" aria-expanded="${isOpen}" aria-label="Ver detalhes de ${esc(r[0])}">${isOpen?'−':'+'}</button> `:'';
       return `<tr>
-      <td class="nowrap" data-label="Código"><button class="exp" type="button" data-ref="${esc(r[0])}" aria-expanded="${isOpen}" aria-label="Ver detalhes de ${esc(r[0])}">${isOpen?'−':'+'}</button> ${esc(r[0])}</td>
+      <td class="nowrap" data-label="Código">${btn}${esc(r[0])}</td>
       <td data-label="Empresa">${esc(r[1])}</td>
-      <td data-label="Projeto">${esc(r[2])}</td>
-      <td class="num" data-label="Valor do projeto (R$ mi)">${r[3]==null?'':fmt(r[3])}</td>
-      <td class="num" data-label="Subvenção (R$ mi)">${r[4]==null?'':fmt(r[4])}</td>
-      <td data-label="Linha temática">${esc(r[5])}</td>
+      <td class="num" data-label="Valor do projeto (R$ mi)">${r[2]==null?'':fmt(r[2])}</td>
+      <td class="num" data-label="Subvenção (R$ mi)">${r[3]==null?'':fmt(r[3])}</td>
+      <td data-label="Linha temática">${esc(r[4])}</td>
+      <td data-label="Status"><span class="tag ${hasContract?'t-ok':'t-warn'}">${esc(r[5])}</span></td>
       <td data-label="UF">${esc(r[6])}</td></tr>`+(isOpen?`
-      <tr class="detail"><td colspan="7"><div class="detail-grid">
-        <div class="dcard"><div class="dlabel">Descrição resumida</div><p>${esc(r[7]||'')}</p></div>
+      <tr class="detail"><td colspan="7"><div class="dtitle">${esc(r[7]||'')}</div><div class="detail-grid">
+        <div class="dcard"><div class="dlabel">Descrição resumida</div><p>${esc(r[8]||'')}</p></div>
         <div class="dcard"><div class="dlabel">Contrato</div>
           <dl class="dkv">
             <dt>Número</dt><dd>${esc(r[9]||'')}</dd>
@@ -658,6 +668,17 @@ tr.detail td::before{content:none!important}
     }).join('')
       :'<tr><td colspan="7" class="sub">Nenhuma proposta aprovada com esses filtros.</td></tr>';
     markSort('approved-table',state.approvedSort);
+    renderApPager(pages,total);
+  }
+  function renderApPager(pages,total){
+    const info=document.getElementById('apPagerInfo'), btns=document.getElementById('apPagerBtns');
+    const from=total?(state.apPage-1)*state.pageSize+1:0, to=Math.min(total,state.apPage*state.pageSize);
+    info.textContent=total?`Mostrando ${from}–${to} de ${total}`:'Sem resultados';
+    btns.innerHTML='';
+    const mk=(label,p,dis,cur)=>{const b=document.createElement('button'); b.textContent=label; b.disabled=dis; if(cur) b.setAttribute('aria-current','true'); b.addEventListener('click',()=>{state.apPage=p; renderApproved(CALLS[current]);}); btns.appendChild(b);};
+    mk('Anterior',state.apPage-1,state.apPage<=1,false);
+    for(let p=Math.max(1,state.apPage-3);p<=Math.min(pages,state.apPage+3);p++) mk(String(p),p,false,p===state.apPage);
+    mk('Próxima',state.apPage+1,state.apPage>=pages,false);
   }
   document.getElementById('approved-body').addEventListener('click',e=>{
     const btn=e.target.closest('button.exp'); if(!btn) return;
