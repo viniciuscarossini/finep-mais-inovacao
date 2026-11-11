@@ -57,4 +57,588 @@ h3{font-size:14px;font-weight:600;margin:0}
 .t-ok{background:var(--ok-bg);color:var(--ok)}
 .t-warn{background:var(--warn-bg);color:var(--warn)}
 .t-bad{background:var(--bad-bg);color:var(--bad)}
-.
+.t-neu{background:var(--accent-bg);color:var(--accent-ink)}
+.t-gray{background:var(--line);color:var(--muted)}
+.tbl-wrap{overflow:hidden;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+thead th{background:var(--bg);font-weight:600;color:var(--muted);font-size:12px;white-space:normal;line-height:1.35}
+td{white-space:normal;overflow-wrap:anywhere}
+th.sortable{cursor:pointer;user-select:none}
+th.sortable:hover{color:var(--accent-ink)}
+th .arr{display:inline-block;width:12px;color:var(--faint)}
+th[aria-sort="ascending"] .arr,th[aria-sort="descending"] .arr{color:var(--accent)}
+th.num,td.num{text-align:right}
+td.nowrap{white-space:nowrap}
+.pager{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px;font-size:13px;color:var(--muted)}
+.pager .btns{display:flex;gap:6px;flex-wrap:wrap}
+.pager button{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:5px 10px;cursor:pointer;color:var(--ink)}
+.pager button[aria-current="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.pager button:disabled{opacity:.45;cursor:default}
+.note{font-size:12px;color:var(--faint);margin-top:10px}
+.hide{display:none!important}
+.calls-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.mini{padding:16px}
+.mini .big{font-size:18px}
+.bosch-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.bosch-kpis .card{padding:14px}
+.bosch-kpis .big{font-size:18px}
+.theme{cursor:pointer}
+.views{display:flex;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:4px;width:fit-content;max-width:100%}
+.view-tab{border:0;background:transparent;color:var(--muted);border-radius:9px;padding:9px 18px;cursor:pointer;font-weight:500;white-space:nowrap}
+.view-tab[aria-selected="true"]{background:var(--accent);color:#fff}
+.view-tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.view{display:flex;flex-direction:column;gap:22px}
+.view.hide{display:none}
+@media (max-width:640px){.views{width:100%}.view-tab{flex:1;padding:9px 8px}}
+@media (max-width:1000px){
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid2,.grid-call{grid-template-columns:1fr}
+  .calls-cards{grid-template-columns:1fr}
+  .bosch-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:640px){
+  .wrap{padding:14px 12px 36px;gap:16px}
+  .card{padding:14px}
+  .hdr h1{font-size:18px}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .big{font-size:18px}
+  .filters{grid-template-columns:1fr}
+  .tbl-wrap{border:0;overflow:visible}
+  table,thead,tbody,tr,td{display:block;width:100%}
+  thead{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+  thead tr{display:flex;flex-wrap:wrap;gap:6px;background:transparent}
+  thead th{display:inline-flex;align-items:center;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 12px;white-space:normal;line-height:1.3}
+  tbody{display:flex;flex-direction:column;gap:10px}
+  tbody tr{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+  td{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;border:0;padding:2px 0;text-align:right!important;white-space:normal!important;overflow-wrap:anywhere;min-width:0}
+  td::before{content:attr(data-label);color:var(--muted);font-size:12px;text-align:left;flex:0 0 auto;max-width:44%}
+  td:first-child{justify-content:flex-start;text-align:left!important;font-weight:600}
+  td:first-child::before{content:none}
+  .pager{justify-content:center;text-align:center}
+  .bosch-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:360px){
+  .kpis{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hdr">
+  <div>
+    <h1>Finep Mais Inovação · Rodada 2</h1>
+    <p>Acompanhamento das chamadas, propostas e análise das empresas</p>
+  </div>
+  <div class="right">
+    <span class="pill">Atualizado em 13/10/2026</span>
+    <button class="btn theme" id="themeBtn" aria-pressed="false">Modo escuro</button>
+  </div>
+</header>
+
+<nav class="views" role="tablist" aria-label="Áreas do dashboard">
+  <button class="view-tab" role="tab" data-view="geral" aria-selected="true">Visão geral</button>
+  <button class="view-tab" role="tab" data-view="editais" aria-selected="false">Editais</button>
+</nav>
+
+<div id="view-geral" class="view">
+<section aria-labelledby="kpi-title">
+  <h2 id="kpi-title" class="hide">Indicadores gerais</h2>
+  <div class="kpis">
+    <div class="card"><div class="label">Propostas submetidas</div><div class="big">1.679</div><div class="sub">+286 vs. relatório anterior</div></div>
+    <div class="card"><div class="label">Propostas aprovadas</div><div class="big">31</div><div class="sub">+16 vs. relatório anterior</div></div>
+    <div class="card"><div class="label">Indeferidas e reprovadas</div><div class="big">326</div><div class="sub">+24 vs. relatório anterior</div></div>
+    <div class="card"><div class="label">Valor disponível</div><div class="big">R$ 1.783,0 mi</div><div class="sub">Orçamento total das 7 chamadas</div></div>
+    <div class="card"><div class="label">Valor aprovado</div><div class="big">R$ 343,8 mi</div><div class="sub">+R$ 167,9 mi vs. anterior</div></div>
+    <div class="card"><div class="label">Saldo disponível</div><div class="big">R$ 1.439,2 mi</div><div class="sub">Valor ainda não comprometido</div></div>
+  </div>
+</section>
+
+<section class="card" aria-labelledby="bosch-title">
+  <div class="section-title">
+    <div>
+      <h2 id="bosch-title">Oportunidades e propostas Bosch</h2>
+      <p class="sub" style="margin:4px 0 0">Consolidação das submissões Bosch nos relatórios Finep</p>
+    </div>
+    <span class="pill">Bosch · 13/10/2026</span>
+  </div>
+
+  <div class="bosch-kpis" style="margin-top:14px">
+    <div class="card mini"><div class="label">Projetos e submissões</div><div class="big">4 • 6</div><div class="sub">Base anterior: 3 propostas vigentes</div></div>
+    <div class="card mini"><div class="label">Valor total dos projetos</div><div class="big">R$ 30,1 mi</div><div class="sub">Inclui nova proposta RBLA 4930/26</div></div>
+    <div class="card mini"><div class="label">Editais com submissões</div><div class="big">3</div><div class="sub">Um edital em alteração</div></div>
+    <div class="card mini"><div class="label">Propostas na fila</div><div class="big">4</div><div class="sub">Posição atual dentro das chamadas</div></div>
+  </div>
+
+  <div class="calls-cards" style="margin-top:12px">
+    <div class="card mini">
+      <h3>Economia Circular e Cidades Sustentáveis</h3>
+      <div class="sub" style="margin-bottom:8px">Em análise · 391 propostas</div>
+      <div class="legend" style="margin-top:0">
+        <div><span>Taxa histórica</span><b>13,9%</b></div>
+        <div><span>Ticket médio aprovado</span><b>R$ 7,0 mi</b></div>
+        <div><span>Aprovações esperadas na fila</span><b>54,3</b></div>
+      </div>
+    </div>
+    <div class="card mini">
+      <h3>Tecnologias Digitais</h3>
+      <div class="sub" style="margin-bottom:8px">Em análise · 501 propostas</div>
+      <div class="legend" style="margin-top:0">
+        <div><span>Taxa histórica</span><b>11,7%</b></div>
+        <div><span>Ticket médio aprovado</span><b>R$ 11,2 mi</b></div>
+        <div><span>Aprovações esperadas na fila</span><b>58,6</b></div>
+      </div>
+    </div>
+    <div class="card mini">
+      <h3>Transição Energética</h3>
+      <div class="sub" style="margin-bottom:8px">Em análise · 315 propostas</div>
+      <div class="legend" style="margin-top:0">
+        <div><span>Taxa histórica</span><b>14,7%</b></div>
+        <div><span>Ticket médio aprovado</span><b>R$ 13,1 mi</b></div>
+        <div><span>Aprovações esperadas na fila</span><b>46,3</b></div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:18px 0 10px">Propostas Bosch atualmente na fila</h3>
+  <div class="tbl-wrap">
+    <table id="bosch-table" data-sort-col="" data-sort-dir="">
+      <thead><tr>
+        <th class="sortable" data-type="text" tabindex="0">Proposta<span class="arr"> ↕</span></th>
+        <th class="sortable" data-type="text" tabindex="0">Edital<span class="arr"> ↕</span></th>
+        <th class="sortable num" data-type="num" tabindex="0">Linha temática<span class="arr"> ↕</span></th>
+        <th class="sortable num" data-type="num" tabindex="0">Subvenção (R$ mi)<span class="arr"> ↕</span></th>
+        <th class="sortable num" data-type="num" tabindex="0">Posição na fila<span class="arr"> ↕</span></th>
+        <th class="sortable num" data-type="num" tabindex="0">Taxa de aprovação<span class="arr"> ↕</span></th>
+        <th class="sortable num" data-type="num" tabindex="0">Total de aprovações esperadas<span class="arr"> ↕</span></th>
+        <th class="sortable num" data-type="num" tabindex="0">Total de propostas analisadas<span class="arr"> ↕</span></th>
+        <th class="sortable num" data-type="num" tabindex="0">Saldo da fila (R$ mi)<span class="arr"> ↕</span></th>
+        <th class="sortable" data-type="text" tabindex="0">Oportunidade<span class="arr"> ↕</span></th>
+        <th class="sortable" data-type="text" tabindex="0">Trajetória<span class="arr"> ↕</span></th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td data-label="Proposta" class="nowrap">#2024227</td>
+          <td data-label="Edital">Economia Circular</td>
+          <td class="num" data-label="Linha temática" data-v="1">1</td>
+          <td class="num" data-label="Subvenção (R$ mi)" data-v="6.9">6,9</td>
+          <td class="num" data-label="Posição na fila" data-v="164">164 de 391 <span class="sub">(163 à frente)</span></td>
+          <td class="num" data-label="Taxa de aprovação" data-v="13.9">13,9%</td>
+          <td class="num" data-label="Total de aprovações esperadas" data-v="22.6">22,6</td>
+          <td class="num" data-label="Total de propostas analisadas" data-v="82">82</td>
+          <td class="num" data-label="Saldo da fila (R$ mi)" data-v="-78.7">−78,7</td>
+          <td data-label="Oportunidade"><span class="tag t-bad">Baixa</span></td>
+          <td data-label="Trajetória"><span class="sub">#2024227 · Em análise</span></td>
+        </tr>
+        <tr>
+          <td data-label="Proposta" class="nowrap">4114/26</td>
+          <td data-label="Edital">Tecnologias Digitais</td>
+          <td class="num" data-label="Linha temática" data-v="1">1</td>
+          <td class="num" data-label="Subvenção (R$ mi)" data-v="10.2">10,2</td>
+          <td class="num" data-label="Posição na fila" data-v="130">130 de 501 <span class="sub">(129 à frente)</span></td>
+          <td class="num" data-label="Taxa de aprovação" data-v="11.7">11,7%</td>
+          <td class="num" data-label="Total de aprovações esperadas" data-v="15.1">15,1</td>
+          <td class="num" data-label="Total de propostas analisadas" data-v="152">152</td>
+          <td class="num" data-label="Saldo da fila (R$ mi)" data-v="30.7">30,7</td>
+          <td data-label="Oportunidade"><span class="tag t-ok">Alta</span></td>
+          <td data-label="Trajetória"><span class="sub">1097/26 Indeferido · 1791/26 Indeferido · 4114/26 Em análise</span></td>
+        </tr>
+        <tr>
+          <td data-label="Proposta" class="nowrap">4930/26</td>
+          <td data-label="Edital">Tecnologias Digitais</td>
+          <td class="num" data-label="Linha temática" data-v="3">3</td>
+          <td class="num" data-label="Subvenção (R$ mi)" data-v="6.0">6,0</td>
+          <td class="num" data-label="Posição na fila" data-v="307">307 de 501 <span class="sub">(306 à frente)</span></td>
+          <td class="num" data-label="Taxa de aprovação" data-v="11.7">11,7%</td>
+          <td class="num" data-label="Total de aprovações esperadas" data-v="35.8">35,8</td>
+          <td class="num" data-label="Total de propostas analisadas" data-v="152">152</td>
+          <td class="num" data-label="Saldo da fila (R$ mi)" data-v="-200.7">−200,7</td>
+          <td data-label="Oportunidade"><span class="tag t-bad">Baixa</span></td>
+          <td data-label="Trajetória"><span class="sub">4930/26 · Em análise</span></td>
+        </tr>
+        <tr>
+          <td data-label="Proposta" class="nowrap">4238/26</td>
+          <td data-label="Edital">Transição Energética</td>
+          <td class="num" data-label="Linha temática" data-v="7">7</td>
+          <td class="num" data-label="Subvenção (R$ mi)" data-v="7.0">7,0</td>
+          <td class="num" data-label="Posição na fila" data-v="103">103 de 315 <span class="sub">(102 à frente)</span></td>
+          <td class="num" data-label="Taxa de aprovação" data-v="14.7">14,7%</td>
+          <td class="num" data-label="Total de aprovações esperadas" data-v="15.0">15,0</td>
+          <td class="num" data-label="Total de propostas analisadas" data-v="164">164</td>
+          <td class="num" data-label="Saldo da fila (R$ mi)" data-v="120">120,0</td>
+          <td data-label="Oportunidade"><span class="tag t-ok">Muito alta</span></td>
+          <td data-label="Trajetória"><span class="sub">4238/26 · Em análise</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Clique nos cabeçalhos para ordenar. No celular, os cabeçalhos viram botões de ordenação acima da lista.</p>
+  <p class="note">Total de propostas analisadas: quantidade de propostas que serão analisadas até o saldo do edital zerar, pela taxa histórica e pelo valor médio da fila. Saldo da fila: saldo do edital ao chegar à posição da proposta.</p>
+</section>
+
+</div>
+
+<div id="view-editais" class="view hide">
+<section aria-labelledby="calls-title">
+  <h2 id="calls-title" class="hide">Chamadas</h2>
+  <div class="tabs" role="tablist" aria-label="Chamadas" id="tabs"></div>
+  <select class="tabs-select" id="callSelect" aria-label="Escolher chamada"></select>
+</section>
+
+<section class="card" id="callPanel" aria-live="polite">
+  <div class="section-title">
+    <div>
+      <h2 id="callName">Economia Circular e Cidades Sustentáveis</h2>
+      <p class="sub" style="margin:4px 0 0" id="callDate">Relatório: resultados parciais até 13/10/2026</p>
+    </div>
+    <span class="pill" id="callBudget">Orçamento: R$ 150 mi</span>
+  </div>
+
+  <div class="filters" style="margin-top:16px">
+    <label>Linha temática<select id="fLine"><option>Todas</option><option>Linha 1</option><option>Linha 2</option><option>Linha 3</option><option>Linha 4</option></select></label>
+    <label>Status da proposta<select id="fStatus"><option>Todos</option><option>Aprovada</option><option>Em análise</option><option>Indeferida</option><option>Reprovada</option></select></label>
+    <label>UF<select id="fUf"><option>Todas</option><option>SP</option><option>SC</option><option>SE</option><option>MS</option><option>CE</option><option>RJ</option><option>AM</option></select></label>
+  </div>
+  <div class="chips" id="chips"></div>
+
+  <div class="kpis" style="margin-top:16px">
+    <div class="card"><div class="label">Orçamento do edital</div><div class="big" id="kBudget">R$ 150,0 mi</div></div>
+    <div class="card"><div class="label">Propostas aprovadas</div><div class="big" id="kApproved">10</div></div>
+    <div class="card"><div class="label">Valor aprovado</div><div class="big" id="kValue">R$ 70,1 mi</div></div>
+    <div class="card"><div class="label">Propostas em análise</div><div class="big" id="kAnalysis">391</div></div>
+    <div class="card"><div class="label">Valor em análise</div><div class="big" id="kValueAnalysis">R$ 3.487,3 mi</div></div>
+  </div>
+
+  <div class="grid-call" style="margin-top:16px">
+    <div class="card">
+      <h3>Status das propostas</h3>
+      <div class="stack" style="margin-top:12px" aria-hidden="true"><i style="width:2.2%;background:var(--accent)"></i><i style="width:9.5%;background:#9fb3b5"></i><i style="width:3.9%;background:#c9635f"></i><i style="width:84.4%;background:#c9a24b"></i></div>
+      <div class="legend">
+        <div><span><span class="dot" style="background:var(--accent)"></span>Aprovadas</span><b>10 · 2,2%</b></div>
+        <div><span><span class="dot" style="background:#9fb3b5"></span>Indeferidas</span><b>44 · 9,5%</b></div>
+        <div><span><span class="dot" style="background:#c9635f"></span>Reprovadas</span><b>18 · 3,9%</b></div>
+        <div><span><span class="dot" style="background:#c9a24b"></span>Em análise</span><b>391 · 84,4%</b></div>
+      </div>
+      <h3 style="margin-top:20px">Leitura rápida</h3>
+      <div class="reading" style="margin-top:10px">
+        <div><span>Taxa de aprovação sobre submetidas</span><b>2,2%</b></div>
+        <div><span>Reprovação sobre decisões finais</span><b>25,0%</b></div>
+        <div><span>Indeferimento sobre decisões finais</span><b>61,1%</b></div>
+        <div><span>Saldo disponível no edital</span><b>R$ 79,9 mi</b></div>
+        <div><span>Ticket médio dos aprovados</span><b>R$ 7,0 mi</b></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Distribuição por linha temática</h3>
+      <div class="dist" style="margin-top:14px" id="dist"></div>
+      <p class="note">Composição do volume de propostas: aprovadas, indeferidas, reprovadas e em análise.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h3>Detalhamento por linha temática</h3>
+    <div class="tbl-wrap" style="margin-top:12px">
+      <table id="line-table">
+        <thead><tr>
+          <th class="sortable" data-type="text" tabindex="0">Linha temática<span class="arr"> ↕</span></th>
+          <th class="sortable num" data-type="num" tabindex="0">Submetidas<span class="arr"> ↕</span></th>
+          <th class="sortable num" data-type="num" tabindex="0">Aprovadas<span class="arr"> ↕</span></th>
+          <th class="sortable num" data-type="num" tabindex="0">Indeferidas<span class="arr"> ↕</span></th>
+          <th class="sortable num" data-type="num" tabindex="0">Reprovadas<span class="arr"> ↕</span></th>
+          <th class="sortable num" data-type="num" tabindex="0">Em análise<span class="arr"> ↕</span></th>
+          <th class="sortable num" data-type="num" tabindex="0">Aprovado (R$ mi)<span class="arr"> ↕</span></th>
+        </tr></thead>
+        <tbody id="line-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="section-title">
+      <h3>Análise das empresas</h3>
+      <span class="sub" id="companyCount"></span>
+    </div>
+    <div style="margin-top:12px"><input class="search" id="search" type="search" placeholder="Buscar empresa, setor ou CNPJ…" aria-label="Buscar empresa"></div>
+    <div class="tbl-wrap" style="margin-top:12px">
+      <table id="company-table">
+        <thead><tr>
+          <th class="sortable num" data-type="num" tabindex="0">ID<span class="arr"> ↕</span></th>
+          <th class="sortable" data-type="text" tabindex="0">Referência<span class="arr"> ↕</span></th>
+          <th class="sortable" data-type="text" tabindex="0">Empresa<span class="arr"> ↕</span></th>
+          <th class="sortable" data-type="text" tabindex="0">Setor<span class="arr"> ↕</span></th>
+          <th class="sortable" data-type="text" tabindex="0">UF<span class="arr"> ↕</span></th>
+          <th class="sortable" data-type="text" tabindex="0">Status<span class="arr"> ↕</span></th>
+          <th class="sortable" data-type="text" tabindex="0">Linha<span class="arr"> ↕</span></th>
+          <th class="sortable num" data-type="num" tabindex="0">Valor solicitado (R$ mi)<span class="arr"> ↕</span></th>
+        </tr></thead>
+        <tbody id="company-body"></tbody>
+      </table>
+    </div>
+    <div class="pager"><span id="pagerInfo"></span><div class="btns" id="pagerBtns"></div></div>
+    <p class="note">Ordem inicial: posição cronológica na fila. Use o campo de busca para filtrar por empresa, setor ou CNPJ.</p>
+  </div>
+
+  <div class="card" style="margin-top:16px;background:transparent;border-style:dashed">
+    <h3 style="color:var(--muted)">Critério de leitura e fonte</h3>
+    <p class="note" style="margin-top:6px">Aprovado: projeto na tabela de projetos aprovados. Indeferido: decisão final na Etapa 1. Reprovado: decisão final na Etapa 2. Em análise: sem resultado final. Fonte: relatórios parciais Finep/MCTI, atualizados até 13/10/2026.</p>
+  </div>
+</section>
+
+</div>
+
+<p class="note" style="text-align:center">Prévia de proposta de layout. Valores fora dos relatórios usados na base atual são ilustrativos.</p>
+</div>
+
+<script>
+(function(){
+  /* ---------- Dados ---------- */
+  const CALLS=[
+    {key:'circular',name:'Economia Circular e Cidades Sustentáveis',budget:150.0,approved:10,approvedVal:70.1,analysis:391,analysisVal:3487.3,status:[10,44,18,391],lines:[
+      {n:'Linha 1',sub:271,ap:5,ind:32,rep:9,an:225,apv:32.3},
+      {n:'Linha 2',sub:37,ap:0,ind:3,rep:0,an:34,apv:0},
+      {n:'Linha 3',sub:86,ap:3,ind:8,rep:6,an:69,apv:23.7},
+      {n:'Linha 4',sub:69,ap:2,ind:1,rep:3,an:63,apv:14.0}]},
+    {key:'mobilidade',name:'Mobilidade Sustentável',budget:203.8,approved:null},
+    {key:'semicondutores',name:'Semicondutores',budget:100.0,approved:null},
+    {key:'digital',name:'Tecnologias Digitais',budget:300.0,approved:null},
+    {key:'mineral',name:'Transformação Mineral',budget:215.2,approved:null},
+    {key:'energia',name:'Transição Energética',budget:514.0,approved:null},
+    {key:'agro',name:'Cadeias Agroindustriais Sustentáveis',budget:300.0,approved:null}
+  ];
+  const COMPANIES=[
+    [1,'0734/26','BIOINFOOD SOLUCOES EM BIOTECNOLOGIA LTDA','Tecnologia','SP','Em análise','Linha 2',8.9],
+    [2,'0757/26','Pullup Soluções em Sistemas Eletrônicos Ltda.','Tecnologia','SP','Em análise','Linha 3',5.5],
+    [3,'0767/26','BROOKS AMBIENTAL LTDA','Outros','SC','Em análise','Linha 3',7.6],
+    [4,'0788/26','NEW HOPE ECOTECH NEGOCIOS SOCIAIS E GESTAO EMPRESARIAL LTDA','Outros','SP','Em análise','Linha 1',7.3],
+    [5,'0804/26','Linecontrol Comercio Importação e Exportação LTDA','Outros','SP','Em análise','Linha 3',8.9],
+    [6,'1725/26','Lakatos Equipamentos Para Embalagens LTDA','Química e Materiais','SP','Em análise','Linha 1',6.8],
+    [7,'1731/26','Agile Tecnologia e Consultoria LTDA','Tecnologia','MS','Em análise','Linha 4',8.3],
+    [8,'1735/26','Laticinios Bela Vista S.A.','Agroindustrial','SE','Em análise','Linha 3',20.0],
+    [9,'1765/26','Nanox Tecnologia s/a','Tecnologia','SP','Em análise','Linha 2',5.1],
+    [10,'1878/26','PALMSOFT TECNOLOGIA E DESENVOLVIMENTO DE SOFTWARE S/A','Tecnologia','CE','Em análise','Linha 1',5.2],
+    [11,'2532/26','WIDE LABS TECNOLOGIA DA INFORMAÇÃO LTDA','Tecnologia','SC','Em análise','Linha 1',12.1],
+    [12,'2591/26','AWTY SUSTENTABILIDADE EM RESIDUOS LTDA','Saneamento e Circularidade','AM','Em análise','Linha 1',5.0],
+    [13,'2593/26','Maramar Aquacultura Comercio Importação Exportação Ltda','Outros','RJ','Em análise','Linha 1',6.9],
+    [14,'2594/26','Purcom Química Ltda','Química e Materiais','SP','Em análise','Linha 2',5.2],
+    [15,'2596/26','Veronese Indústria de Produtos Químicos LTDA','Tecnologia','SP','Em análise','Linha 1',5.3]
+  ];
+  const LINE_NAMES=['Linha 1','Linha 2','Linha 3','Linha 4'];
+
+  /* ---------- Estado ---------- */
+  let current=0;
+  const state={line:'Todas',status:'Todos',uf:'Todas',search:'',page:1,pageSize:10,
+    companySort:{col:0,dir:1}, lineSort:{col:0,dir:1}, boschSort:{col:-1,dir:1}};
+
+  /* ---------- Utilidades ---------- */
+  const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  const fmt=(n,d=1)=>Number(n).toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+
+  /* ---------- Abas ---------- */
+  const tabs=document.getElementById('tabs'), sel=document.getElementById('callSelect');
+  const SHORT=['Economia Circular','Mobilidade','Semicondutores','Tecnologias Digitais','Transformação Mineral','Transição Energética','Agroindústria'];
+  CALLS.forEach((c,i)=>{
+    const b=document.createElement('button');
+    b.className='tab'; b.setAttribute('role','tab'); b.textContent=SHORT[i]; b.title=c.name;
+    b.setAttribute('aria-selected',i===0?'true':'false');
+    b.addEventListener('click',()=>selectCall(i));
+    tabs.appendChild(b);
+    const o=document.createElement('option'); o.value=i; o.textContent=c.name; sel.appendChild(o);
+  });
+  sel.addEventListener('change',()=>selectCall(Number(sel.value)));
+
+  function selectCall(i){
+    current=i; state.page=1;
+    [...tabs.children].forEach((b,j)=>b.setAttribute('aria-selected',j===i?'true':'false'));
+    sel.value=i;
+    render();
+  }
+
+  /* ---------- Filtros ---------- */
+  ['fLine','fStatus','fUf'].forEach(id=>{
+    document.getElementById(id).addEventListener('change',()=>{
+      state.line=document.getElementById('fLine').value;
+      state.status=document.getElementById('fStatus').value;
+      state.uf=document.getElementById('fUf').value;
+      state.page=1; render();
+    });
+  });
+  document.getElementById('search').addEventListener('input',e=>{state.search=e.target.value.trim().toLowerCase(); state.page=1; renderCompanies();});
+
+  function renderChips(){
+    const chips=document.getElementById('chips'); chips.innerHTML='';
+    [['Linha',state.line,'Todas'],['Status',state.status,'Todos'],['UF',state.uf,'Todas']].forEach(([k,v,d])=>{
+      if(v!==d){ const s=document.createElement('span'); s.className='chip'; s.textContent=k+': '+v; chips.appendChild(s); }
+    });
+  }
+
+  /* ---------- Render principal ---------- */
+  function render(){
+    const c=CALLS[current];
+    document.getElementById('callName').textContent=c.name;
+    document.getElementById('callBudget').textContent='Orçamento: R$ '+fmt(c.budget,0)+' mi';
+    document.getElementById('kBudget').textContent='R$ '+fmt(c.budget)+' mi';
+    const hasDetail=!!c.lines;
+    document.getElementById('kApproved').textContent=hasDetail?c.approved:'—';
+    document.getElementById('kValue').textContent=hasDetail?'R$ '+fmt(c.approvedVal)+' mi':'—';
+    document.getElementById('kAnalysis').textContent=hasDetail?c.analysis:'—';
+    document.getElementById('kValueAnalysis').textContent=hasDetail?'R$ '+fmt(c.analysisVal)+' mi':'—';
+    renderChips();
+    renderDistribution(c);
+    renderLines(c);
+    renderCompanies();
+    renderNote(hasDetail);
+  }
+
+  function renderNote(hasDetail){
+    let n=document.getElementById('detailNote');
+    if(!n){ n=document.createElement('p'); n.id='detailNote'; n.className='note'; document.getElementById('companyCount').after(n); }
+  }
+
+  function renderDistribution(c){
+    const box=document.getElementById('dist');
+    if(!c.lines){ box.innerHTML='<p class="note">Dados detalhados por linha temática estão disponíveis nesta prévia apenas para Economia Circular.</p>'; return; }
+    box.innerHTML=c.lines.map(l=>{
+      const tot=l.ap+l.ind+l.rep+l.an||1;
+      const pc=v=>(v/tot*100).toFixed(2)+'%';
+      return `<div><div class="row"><span>${l.n}</span><span class="sub">${l.sub} propostas</span></div>
+        <div class="stack" style="margin-top:6px" aria-hidden="true"><i style="width:${pc(l.ap)};background:var(--accent)"></i><i style="width:${pc(l.ind)};background:#9fb3b5"></i><i style="width:${pc(l.rep)};background:#c9635f"></i><i style="width:${pc(l.an)};background:#c9a24b"></i></div></div>`;
+    }).join('');
+  }
+
+  function renderLines(c){
+    const body=document.getElementById('line-body');
+    if(!c.lines){ body.innerHTML='<tr><td colspan="7" class="sub">Sem detalhamento nesta prévia.</td></tr>'; return; }
+    const rows=c.lines.map(l=>[l.n,l.sub,l.ap,l.ind,l.rep,l.an,l.apv]);
+    applySort(rows,state.lineSort);
+    body.innerHTML=rows.map(r=>`<tr>
+      <td data-label="Linha temática">${esc(r[0])}</td>
+      <td class="num" data-label="Submetidas">${r[1]}</td>
+      <td class="num" data-label="Aprovadas">${r[2]}</td>
+      <td class="num" data-label="Indeferidas">${r[3]}</td>
+      <td class="num" data-label="Reprovadas">${r[4]}</td>
+      <td class="num" data-label="Em análise">${r[5]}</td>
+      <td class="num" data-label="Aprovado (R$ mi)">${fmt(r[6])}</td></tr>`).join('');
+    markSort('line-table',state.lineSort);
+  }
+
+  function renderCompanies(){
+    const c=CALLS[current];
+    let rows=COMPANIES.map(r=>r.slice());
+    if(!c.lines){ rows=[]; }
+    if(state.line!=='Todas') rows=rows.filter(r=>r[6]===state.line);
+    if(state.status!=='Todos') rows=rows.filter(r=>r[5]===state.status||(state.status==='Em análise'&&r[5]==='Em análise'));
+    if(state.uf!=='Todas') rows=rows.filter(r=>r[4]===state.uf);
+    if(state.search) rows=rows.filter(r=>(r[2]+' '+r[3]+' '+r[1]).toLowerCase().includes(state.search));
+    const total=rows.length;
+    applySort(rows,state.companySort);
+    const pages=Math.max(1,Math.ceil(total/state.pageSize));
+    if(state.page>pages) state.page=pages;
+    const start=(state.page-1)*state.pageSize, slice=rows.slice(start,start+state.pageSize);
+    document.getElementById('companyCount').textContent=total+' propostas';
+    document.getElementById('company-body').innerHTML=slice.length?slice.map(r=>`<tr>
+      <td class="num" data-label="ID">${r[0]}</td>
+      <td class="nowrap" data-label="Referência">${esc(r[1])}</td>
+      <td data-label="Empresa">${esc(r[2])}</td>
+      <td data-label="Setor">${esc(r[3])}</td>
+      <td data-label="UF">${esc(r[4])}</td>
+      <td data-label="Status"><span class="tag t-warn">${esc(r[5])}</span></td>
+      <td data-label="Linha">${esc(r[6])}</td>
+      <td class="num nowrap" data-label="Valor solicitado (R$ mi)">${fmt(r[7])}</td></tr>`).join('')
+      :'<tr><td colspan="8" class="sub">Nenhuma proposta com esses filtros.</td></tr>';
+    markSort('company-table',state.companySort);
+    renderPager(pages,total);
+  }
+
+  function renderPager(pages,total){
+    const info=document.getElementById('pagerInfo'), btns=document.getElementById('pagerBtns');
+    const from=total?(state.page-1)*state.pageSize+1:0, to=Math.min(total,state.page*state.pageSize);
+    info.textContent=total?`Mostrando ${from}–${to} de ${total}`:'Sem resultados';
+    btns.innerHTML='';
+    const mk=(label,p,dis,cur)=>{const b=document.createElement('button'); b.textContent=label; b.disabled=dis; if(cur) b.setAttribute('aria-current','true'); b.addEventListener('click',()=>{state.page=p; renderCompanies();}); btns.appendChild(b);};
+    mk('Anterior',state.page-1,state.page<=1,false);
+    for(let p=1;p<=Math.min(pages,7);p++) mk(String(p),p,false,p===state.page);
+    mk('Próxima',state.page+1,state.page>=pages,false);
+  }
+
+  /* ---------- Ordenação ---------- */
+  function applySort(rows,sort){
+    const idx=sort.col; if(idx<0) return;
+    rows.sort((a,b)=>{
+      const va=a[idx], vb=b[idx];
+      let cmp;
+      if(typeof va==='number'&&typeof vb==='number') cmp=va-vb;
+      else cmp=String(va).localeCompare(String(vb),'pt-BR',{numeric:true,sensitivity:'base'});
+      return cmp*sort.dir;
+    });
+  }
+  function markSort(tableId,sort){
+    const ths=document.querySelectorAll('#'+tableId+' thead th');
+    ths.forEach((th,i)=>{
+      th.setAttribute('aria-sort', i===sort.col ? (sort.dir>0?'ascending':'descending') : 'none');
+      const a=th.querySelector('.arr'); if(a) a.textContent = i===sort.col ? (sort.dir>0?' ↑':' ↓') : ' ↕';
+    });
+  }
+  function bindSort(tableId,sortKey,rerender){
+    document.querySelectorAll('#'+tableId+' thead th.sortable').forEach((th,i)=>{
+      const go=()=>{ const s=state[sortKey]; if(s.col===i) s.dir*=-1; else {s.col=i; s.dir=1;} rerender(); };
+      th.addEventListener('click',go);
+      th.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } });
+    });
+  }
+  bindSort('company-table','companySort',renderCompanies);
+  bindSort('line-table','lineSort',()=>renderLines(CALLS[current]));
+
+  /* Tabela Bosch: ordenação simples das linhas */
+  (function(){
+    const t=document.getElementById('bosch-table'), body=t.tBodies[0];
+    t.querySelectorAll('thead th.sortable').forEach((th,i)=>{
+      const go=()=>{
+        const dir = (state.boschSort.col===i) ? -state.boschSort.dir : 1;
+        state.boschSort={col:i,dir};
+        const rows=[...body.rows];
+        rows.sort((a,b)=>{
+          const ca=a.cells[i], cb=b.cells[i];
+          const va = ca.dataset.v!==undefined ? parseFloat(ca.dataset.v) : ca.textContent.trim();
+          const vb = cb.dataset.v!==undefined ? parseFloat(cb.dataset.v) : cb.textContent.trim();
+          const cmp = (typeof va==='number') ? va-vb : String(va).localeCompare(String(vb),'pt-BR',{numeric:true,sensitivity:'base'});
+          return cmp*dir;
+        });
+        rows.forEach(r=>body.appendChild(r));
+        t.querySelectorAll('thead th').forEach((h,j)=>{
+          h.setAttribute('aria-sort', j===i ? (dir>0?'ascending':'descending') : 'none');
+          const a=h.querySelector('.arr'); if(a) a.textContent = j===i ? (dir>0?' ↑':' ↓') : ' ↕';
+        });
+      };
+      th.addEventListener('click',go);
+      th.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } });
+    });
+  })();
+
+  /* ---------- Modo escuro ---------- */
+  const themeBtn=document.getElementById('themeBtn');
+  themeBtn.addEventListener('click',()=>{
+    const on=document.body.classList.toggle('dark');
+    themeBtn.setAttribute('aria-pressed',on?'true':'false');
+    themeBtn.textContent=on?'Modo claro':'Modo escuro';
+  });
+
+  /* ---------- Áreas: Visão geral e Editais ---------- */
+  const viewTabs=[...document.querySelectorAll('.view-tab')];
+  function showView(v){
+    ['geral','editais'].forEach(id=>document.getElementById('view-'+id).classList.toggle('hide',id!==v));
+    viewTabs.forEach(t=>t.setAttribute('aria-selected',t.dataset.view===v?'true':'false'));
+    if(location.hash!=='#'+v) history.replaceState(null,'','#'+v);
+    window.scrollTo({top:0});
+  }
+  viewTabs.forEach(t=>t.addEventListener('click',()=>showView(t.dataset.view)));
+  window.addEventListener('hashchange',()=>{const h=location.hash.slice(1); if(h==='geral'||h==='editais') showView(h);});
+  showView(location.hash==='#editais'?'editais':'geral');
+
+  selectCall(0);
+})();
+</script>
+</body>
+</html>
