@@ -155,7 +155,7 @@ td.nowrap{white-space:nowrap}
 .detail-box p{margin:0 0 8px}
 .detail-box b{color:var(--accent-ink)}
 
-.detail-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,0.8fr);gap:12px;padding:4px 0}
+.detail-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,0.8fr);gap:12px;padding:4px 0}
 .dcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
 .dlabel{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;font-weight:600}
 .dcard p{margin:0;font-size:13px;line-height:1.55;overflow-wrap:break-word}
@@ -165,7 +165,7 @@ td.nowrap{white-space:nowrap}
 tr.detail td{background:var(--bg);padding:12px 14px}
 @media (max-width:640px){tr.detail td{display:block!important}}
 tr.detail td::before{content:none!important}
-@media (max-width:1000px){.detail-grid{grid-template-columns:1fr 1fr}.detail-grid>.dcard:last-child{grid-column:1/-1}}
+@media (max-width:1000px){.detail-grid{grid-template-columns:1fr}}
 @media (max-width:640px){.detail-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -646,7 +646,6 @@ tr.detail td::before{content:none!important}
       <td data-label="UF">${esc(r[6])}</td></tr>`+(isOpen?`
       <tr class="detail"><td colspan="7"><div class="detail-grid">
         <div class="dcard"><div class="dlabel">Descrição resumida</div><p>${esc(r[7]||'')}</p></div>
-        <div class="dcard"><div class="dlabel">Resumo publicável</div><p>${esc(r[8]||'')}</p></div>
         <div class="dcard"><div class="dlabel">Contrato</div>
           <dl class="dkv">
             <dt>Número</dt><dd>${esc(r[9]||'')}</dd>
