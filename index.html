@@ -82,6 +82,9 @@ td.nowrap{white-space:nowrap}
 .pager button{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:5px 10px;cursor:pointer;color:var(--ink)}
 .pager button[aria-current="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
 .pager button:disabled{opacity:.45;cursor:default}
+.pager-right{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.pager .pagesize{display:flex;gap:6px;align-items:center}
+.pager select{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:5px 8px;color:var(--ink);font:inherit;cursor:pointer}
 .note{font-size:12px;color:var(--faint);margin-top:10px}
 .note.small{font-size:11px;margin-top:4px}
 .hide{display:none!important}
@@ -194,12 +197,12 @@ tr.detail td::before{content:none!important}
 <section aria-labelledby="kpi-title">
   <h2 id="kpi-title" class="hide">Indicadores gerais</h2>
   <div class="kpis">
-    <div class="card"><div class="label">Propostas submetidas</div><div class="big">2.769</div><div class="sub">Set/26: 1.966 · variação +803</div></div>
-    <div class="card"><div class="label">Propostas aprovadas</div><div class="big">103</div><div class="sub">Set/26: 45 · variação +58</div></div>
-    <div class="card"><div class="label">Indeferidas e reprovadas</div><div class="big">621</div><div class="sub">Set/26: 404 · variação +217</div></div>
-    <div class="card"><div class="label">Valor disponível</div><div class="big">R$ 3.117,8 mi</div><div class="sub">Set/26: R$ 2.383,0 mi · variação +R$ 734,8 mi</div></div>
-    <div class="card"><div class="label">Valor aprovado</div><div class="big">R$ 1.294,0 mi</div><div class="sub">Set/26: R$ 646,0 mi · variação +R$ 648,0 mi</div></div>
-    <div class="card"><div class="label">Saldo disponível</div><div class="big">R$ 1.823,8 mi</div><div class="sub">Set/26: R$ 1.737,0 mi · variação +R$ 86,8 mi</div></div>
+    <div class="card"><div class="label">Propostas submetidas</div><div class="big">2.769</div><div class="sub">Out/26: 2.769 · variação 0</div></div>
+    <div class="card"><div class="label">Propostas aprovadas</div><div class="big">103</div><div class="sub">Out/26: 88 · variação +15</div></div>
+    <div class="card"><div class="label">Indeferidas e reprovadas</div><div class="big">621</div><div class="sub">Out/26: 515 · variação +106</div></div>
+    <div class="card"><div class="label">Valor disponível</div><div class="big">R$ 3.117,8 mi</div><div class="sub">Out/26: R$ 3.117,8 mi · variação R$ 0,0 mi</div></div>
+    <div class="card"><div class="label">Valor aprovado</div><div class="big">R$ 1.294,0 mi</div><div class="sub">Out/26: R$ 1.118,1 mi · variação +R$ 175,8 mi</div></div>
+    <div class="card"><div class="label">Saldo disponível</div><div class="big">R$ 1.823,8 mi</div><div class="sub">Out/26: R$ 1.999,7 mi · variação −R$ 175,8 mi</div></div>
   </div>
 </section>
 
@@ -222,38 +225,38 @@ tr.detail td::before{content:none!important}
   <div class="calls-cards" style="margin-top:12px">
     <div class="card mini">
       <h3>Economia Circular e Cidades Sustentáveis</h3>
-      <div class="sub" style="margin-bottom:8px">Em análise · 391 propostas</div>
+      <div class="sub" style="margin-bottom:8px">Em análise · 388 propostas</div>
       <div class="legend" style="margin-top:0">
-        <div><span>Propostas aprovadas</span><b>10</b></div>
-        <div><span>Subvenção aprovada</span><b>R$ 70,1 mi</b></div>
-        <div><span>Taxa histórica</span><b>13,9%</b></div>
-        <div><span>Ticket médio aprovado</span><b>R$ 7,0 mi</b></div>
-        <div><span>Aprovações esperadas na fila</span><b>54</b></div>
-        <div><span>Saldo para aprovação</span><b>R$ 79,9 mi</b></div>
+        <div><span>Propostas aprovadas</span><b>13</b></div>
+        <div><span>Subvenção aprovada</span><b>R$ 97,6 mi</b></div>
+        <div><span>Taxa histórica</span><b>17,3%</b></div>
+        <div><span>Ticket médio aprovado</span><b>R$ 7,5 mi</b></div>
+        <div><span>Aprovações esperadas na fila</span><b>67</b></div>
+        <div><span>Saldo para aprovação</span><b>R$ 52,4 mi</b></div>
       </div>
     </div>
     <div class="card mini">
       <h3>Tecnologias Digitais</h3>
-      <div class="sub" style="margin-bottom:8px">Em análise · 501 propostas</div>
+      <div class="sub" style="margin-bottom:8px">Em análise · 484 propostas</div>
       <div class="legend" style="margin-top:0">
-        <div><span>Propostas aprovadas</span><b>9</b></div>
-        <div><span>Subvenção aprovada</span><b>R$ 100,7 mi</b></div>
+        <div><span>Propostas aprovadas</span><b>11</b></div>
+        <div><span>Subvenção aprovada</span><b>R$ 119,2 mi</b></div>
         <div><span>Taxa histórica</span><b>11,7%</b></div>
-        <div><span>Ticket médio aprovado</span><b>R$ 11,2 mi</b></div>
-        <div><span>Aprovações esperadas na fila</span><b>58</b></div>
-        <div><span>Saldo para aprovação</span><b>R$ 199,3 mi</b></div>
+        <div><span>Ticket médio aprovado</span><b>R$ 10,8 mi</b></div>
+        <div><span>Aprovações esperadas na fila</span><b>57</b></div>
+        <div><span>Saldo para aprovação</span><b>R$ 180,8 mi</b></div>
       </div>
     </div>
     <div class="card mini">
       <h3>Transição Energética</h3>
-      <div class="sub" style="margin-bottom:8px">Em análise · 315 propostas</div>
+      <div class="sub" style="margin-bottom:8px">Em análise · 244 propostas</div>
       <div class="legend" style="margin-top:0">
-        <div><span>Propostas aprovadas</span><b>15</b></div>
-        <div><span>Subvenção aprovada</span><b>R$ 197,0 mi</b></div>
-        <div><span>Taxa histórica</span><b>14,7%</b></div>
-        <div><span>Ticket médio aprovado</span><b>R$ 13,1 mi</b></div>
-        <div><span>Aprovações esperadas na fila</span><b>46</b></div>
-        <div><span>Saldo para aprovação</span><b>R$ 303,0 mi</b></div>
+        <div><span>Propostas aprovadas</span><b>18</b></div>
+        <div><span>Subvenção aprovada</span><b>R$ 231,0 mi</b></div>
+        <div><span>Taxa histórica</span><b>10,4%</b></div>
+        <div><span>Ticket médio aprovado</span><b>R$ 12,8 mi</b></div>
+        <div><span>Aprovações esperadas na fila</span><b>25</b></div>
+        <div><span>Saldo para aprovação</span><b>R$ 283,0 mi</b></div>
       </div>
     </div>
     </div>
@@ -422,7 +425,7 @@ tr.detail td::before{content:none!important}
         <tbody id="approved-body"></tbody>
       </table>
     </div>
-    <div class="pager"><span id="apPagerInfo"></span><div class="btns" id="apPagerBtns"></div></div>
+    <div class="pager"><span id="apPagerInfo"></span><div class="pager-right"><label class="pagesize">Linhas por página <select id="apPageSize"><option value="10" selected>10</option><option value="20">20</option><option value="50">50</option><option value="100">100</option></select></label><div class="btns" id="apPagerBtns"></div></div></div>
     <p class="note small">Fonte dos dados de contrato: Painel de informações das Contratações da Finep. Status “Em execução”: há contrato na base; clique no + para ver o projeto, a descrição resumida e os dados do contrato. Status “Em contratação”: ainda sem contrato, sem detalhes.</p>
   </div>
 
@@ -448,7 +451,7 @@ tr.detail td::before{content:none!important}
         <tbody id="company-body"></tbody>
       </table>
     </div>
-    <div class="pager"><span id="pagerInfo"></span><div class="btns" id="pagerBtns"></div></div>
+    <div class="pager"><span id="pagerInfo"></span><div class="pager-right"><label class="pagesize">Linhas por página <select id="pageSizeSel"><option value="10" selected>10</option><option value="20">20</option><option value="50">50</option><option value="100">100</option></select></label><div class="btns" id="pagerBtns"></div></div></div>
     <p class="note">Ordem inicial: posição cronológica na fila. Use o campo de busca para filtrar por empresa, setor ou CNPJ.</p>
   </div>
 
@@ -482,7 +485,7 @@ tr.detail td::before{content:none!important}
 
   /* ---------- Estado ---------- */
   let current=0;
-  const state={line:'Todas',status:'Todos',uf:'Todas',search:'',page:1,apPage:1,pageSize:10,
+  const state={line:'Todas',status:'Todos',uf:'Todas',search:'',page:1,apPage:1,pageSize:10,apPageSize:10,
     companySort:{col:0,dir:1}, lineSort:{col:0,dir:1}, approvedSort:{col:0,dir:1}, boschSort:{col:-1,dir:1}};
 
   /* ---------- Abas ---------- */
@@ -641,9 +644,9 @@ tr.detail td::before{content:none!important}
     const data=rows.map(r=>[r[0],r[1],r[4],r[5],r[6],apStatus(r),r[7],r[2],r[3],r[9],r[10],r[11],r[12],r[13]]);
     applySort(data,state.approvedSort);
     const total=data.length;
-    const pages=Math.max(1,Math.ceil(total/state.pageSize));
+    const pages=Math.max(1,Math.ceil(total/state.apPageSize));
     if(state.apPage>pages) state.apPage=pages;
-    const start=(state.apPage-1)*state.pageSize, slice=data.slice(start,start+state.pageSize);
+    const start=(state.apPage-1)*state.apPageSize, slice=data.slice(start,start+state.apPageSize);
     document.getElementById('approvedCount').textContent=total+(total===1?' proposta':' propostas');
     const open=state.openApproved||(state.openApproved=new Set());
     body.innerHTML=slice.length?slice.map(r=>{
@@ -676,7 +679,7 @@ tr.detail td::before{content:none!important}
   }
   function renderApPager(pages,total){
     const info=document.getElementById('apPagerInfo'), btns=document.getElementById('apPagerBtns');
-    const from=total?(state.apPage-1)*state.pageSize+1:0, to=Math.min(total,state.apPage*state.pageSize);
+    const from=total?(state.apPage-1)*state.apPageSize+1:0, to=Math.min(total,state.apPage*state.apPageSize);
     info.textContent=total?`Mostrando ${from}–${to} de ${total}`:'Sem resultados';
     btns.innerHTML='';
     const mk=(label,p,dis,cur)=>{const b=document.createElement('button'); b.textContent=label; b.disabled=dis; if(cur) b.setAttribute('aria-current','true'); b.addEventListener('click',()=>{state.apPage=p; renderApproved(CALLS[current]);}); btns.appendChild(b);};
@@ -725,6 +728,9 @@ tr.detail td::before{content:none!important}
     for(let p=Math.max(1,state.page-3);p<=Math.min(pages,state.page+3);p++) mk(String(p),p,false,p===state.page);
     mk('Próxima',state.page+1,state.page>=pages,false);
   }
+
+  document.getElementById('pageSizeSel').addEventListener('change',e=>{state.pageSize=Number(e.target.value); state.page=1; renderCompanies();});
+  document.getElementById('apPageSize').addEventListener('change',e=>{state.apPageSize=Number(e.target.value); state.apPage=1; renderApproved(CALLS[current]);});
 
   /* ---------- Ordenação ---------- */
   function applySort(rows,sort){
