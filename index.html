@@ -189,23 +189,11 @@ tr.detail td::before{content:none!important}
 </header>
 
 <nav class="views" role="tablist" aria-label="Áreas do dashboard">
-  <button class="view-tab" role="tab" data-view="geral" aria-selected="true">Visão geral</button>
+  <button class="view-tab" role="tab" data-view="geral" aria-selected="true">Propostas Bosch</button>
   <button class="view-tab" role="tab" data-view="editais" aria-selected="false">Editais</button>
 </nav>
 
 <div id="view-geral" class="view">
-<section aria-labelledby="kpi-title">
-  <h2 id="kpi-title" class="hide">Indicadores gerais</h2>
-  <div class="kpis">
-    <div class="card"><div class="label">Propostas submetidas</div><div class="big">2.769</div><div class="sub">Out/26: 2.769 · variação 0</div></div>
-    <div class="card"><div class="label">Propostas aprovadas</div><div class="big">103</div><div class="sub">Out/26: 88 · variação +15</div></div>
-    <div class="card"><div class="label">Indeferidas e reprovadas</div><div class="big">621</div><div class="sub">Out/26: 515 · variação +106</div></div>
-    <div class="card"><div class="label">Valor disponível</div><div class="big">R$ 3.117,8 mi</div><div class="sub">Out/26: R$ 3.117,8 mi · variação R$ 0,0 mi</div></div>
-    <div class="card"><div class="label">Valor aprovado</div><div class="big">R$ 1.294,0 mi</div><div class="sub">Out/26: R$ 1.118,1 mi · variação +R$ 175,8 mi</div></div>
-    <div class="card"><div class="label">Saldo disponível</div><div class="big">R$ 1.823,8 mi</div><div class="sub">Out/26: R$ 1.999,7 mi · variação −R$ 175,8 mi</div></div>
-  </div>
-</section>
-
 <section class="card" aria-labelledby="bosch-title">
   <div class="section-title">
     <div>
@@ -344,6 +332,20 @@ tr.detail td::before{content:none!important}
   <h2 id="calls-title" class="hide">Chamadas</h2>
   <div class="tabs" role="tablist" aria-label="Chamadas" id="tabs"></div>
   <select class="tabs-select" id="callSelect" aria-label="Escolher chamada"></select>
+</section>
+
+<section id="overviewPanel" aria-label="Visão Geral dos editais" hidden>
+<section aria-labelledby="kpi-title">
+  <h2 id="kpi-title" class="hide">Indicadores gerais</h2>
+  <div class="kpis">
+    <div class="card"><div class="label">Propostas submetidas</div><div class="big">2.769</div><div class="sub">Out/26: 2.769 · variação 0</div></div>
+    <div class="card"><div class="label">Propostas aprovadas</div><div class="big">103</div><div class="sub">Out/26: 88 · variação +15</div></div>
+    <div class="card"><div class="label">Indeferidas e reprovadas</div><div class="big">621</div><div class="sub">Out/26: 515 · variação +106</div></div>
+    <div class="card"><div class="label">Valor disponível</div><div class="big">R$ 3.117,8 mi</div><div class="sub">Out/26: R$ 3.117,8 mi · variação R$ 0,0 mi</div></div>
+    <div class="card"><div class="label">Valor aprovado</div><div class="big">R$ 1.294,0 mi</div><div class="sub">Out/26: R$ 1.118,1 mi · variação +R$ 175,8 mi</div></div>
+    <div class="card"><div class="label">Saldo disponível</div><div class="big">R$ 1.823,8 mi</div><div class="sub">Out/26: R$ 1.999,7 mi · variação −R$ 175,8 mi</div></div>
+  </div>
+</section>
 </section>
 
 <section class="card" id="callPanel" aria-live="polite">
@@ -491,15 +493,19 @@ tr.detail td::before{content:none!important}
   /* ---------- Abas ---------- */
   const tabs=document.getElementById('tabs'), sel=document.getElementById('callSelect');
   const SHORT=['Economia Circular','Mobilidade','Semicondutores','Tecnologias Digitais','Transformação Mineral','Transição Energética','Agroindústria','Saúde','Defesa'];
+  const ovBtn=document.createElement('button');
+  ovBtn.className='tab'; ovBtn.setAttribute('role','tab'); ovBtn.textContent='Visão Geral'; ovBtn.dataset.idx='ov';
+  ovBtn.addEventListener('click',showOverview); tabs.appendChild(ovBtn);
+  const ovOpt=document.createElement('option'); ovOpt.value='ov'; ovOpt.textContent='Visão Geral'; sel.appendChild(ovOpt);
   CALLS.forEach((c,i)=>{
     const b=document.createElement('button');
-    b.className='tab'; b.setAttribute('role','tab'); b.textContent=SHORT[i]; b.title=c.name;
+    b.className='tab'; b.setAttribute('role','tab'); b.textContent=SHORT[i]; b.title=c.name; b.dataset.idx=i;
     b.setAttribute('aria-selected',i===0?'true':'false');
     b.addEventListener('click',()=>selectCall(i));
     tabs.appendChild(b);
     const o=document.createElement('option'); o.value=i; o.textContent=c.name; sel.appendChild(o);
   });
-  sel.addEventListener('change',()=>selectCall(Number(sel.value)));
+  sel.addEventListener('change',()=>{ if(sel.value==='ov') showOverview(); else selectCall(Number(sel.value)); });
 
   function buildFilters(c){
     const fl=document.getElementById('fLine'), fu=document.getElementById('fUf');
@@ -569,9 +575,18 @@ tr.detail td::before{content:none!important}
   function selectCall(i){
     current=i; state.page=1; state.apPage=1;
     buildFilters(CALLS[i]);
-    [...tabs.children].forEach((b,j)=>b.setAttribute('aria-selected',j===i?'true':'false'));
+    document.getElementById('overviewPanel').hidden=true;
+    document.getElementById('callPanel').hidden=false;
+    [...tabs.children].forEach(b=>b.setAttribute('aria-selected',b.dataset.idx===String(i)?'true':'false'));
     sel.value=i;
     render();
+  }
+
+  function showOverview(){
+    document.getElementById('overviewPanel').hidden=false;
+    document.getElementById('callPanel').hidden=true;
+    [...tabs.children].forEach(b=>b.setAttribute('aria-selected',b.dataset.idx==='ov'?'true':'false'));
+    sel.value='ov';
   }
 
   /* ---------- Filtros ---------- */
@@ -800,14 +815,14 @@ tr.detail td::before{content:none!important}
   function showView(v){
     ['geral','editais'].forEach(id=>document.getElementById('view-'+id).classList.toggle('hide',id!==v));
     viewTabs.forEach(t=>t.setAttribute('aria-selected',t.dataset.view===v?'true':'false'));
+    if(v==='editais') showOverview();
     if(location.hash!=='#'+v) history.replaceState(null,'','#'+v);
     window.scrollTo({top:0});
   }
   viewTabs.forEach(t=>t.addEventListener('click',()=>showView(t.dataset.view)));
   window.addEventListener('hashchange',()=>{const h=location.hash.slice(1); if(h==='geral'||h==='editais') showView(h);});
-  showView(location.hash==='#editais'?'editais':'geral');
-
   selectCall(0);
+  showView(location.hash==='#editais'?'editais':'geral');
 })();
 </script>
 </body>
